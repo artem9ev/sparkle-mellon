@@ -1,7 +1,12 @@
+
 public class App {
     public static void main(String[] args) throws Exception {
-        int x = 99;
+        Car ferari = new Car();
+        Car lambotrgini = new Car();
 
-        System.out.printf("Hello, World! %d", x);
+        ferari.Go();
+        lambotrgini.Go();
+
+        lambotrgini = null;
     }
 }
