@@ -1,0 +1,4 @@
+﻿  simple-server.cpp
+F:\bread\in-class practice\networking\simple-server\simple-server\simple-server.cpp(23,22): warning C4244: =: преобразование "std::streamoff" в "long", возможна потеря данных
+F:\bread\in-class practice\networking\simple-server\simple-server\simple-server.cpp(39,23): warning C4244: =: преобразование "std::streamoff" в "long", возможна потеря данных
+  simple-server.vcxproj -> F:\bread\in-class practice\networking\simple-server\Debug\simple-server.exe

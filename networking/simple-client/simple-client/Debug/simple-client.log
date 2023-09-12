@@ -1,0 +1,4 @@
+﻿  simple-client.cpp
+F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(12,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(34,26): warning C4244: =: преобразование "std::streamoff" в "long", возможна потеря данных
+  simple-client.vcxproj -> F:\bread\in-class practice\networking\simple-client\Debug\simple-client.exe
