@@ -1,0 +1,9 @@
+﻿  simple-client.cpp
+F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(33,27): warning C4244: =: преобразование "std::streamoff" в "long", возможна потеря данных
+F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(53,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  Создание кода
+  1 of 162 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  simple-client.vcxproj -> F:\bread\in-class practice\networking\simple-client\Release\simple-client.exe

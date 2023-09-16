@@ -10,6 +10,9 @@ struct Person
 }B;
 int answer;
 long size_pred;
+
+void 
+
 int main() {
 	ifstream fR;
 	ofstream fA;
