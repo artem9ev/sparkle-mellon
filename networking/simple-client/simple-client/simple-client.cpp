@@ -2,66 +2,92 @@
 #include <fstream>
 #include <string>
 #include <windows.h>
+#include <random>
+
 using namespace std;
 // структура данных запроса клиента
 struct Person
 {
 	char name[25];  //имя
-	int height;		//рост
-	int weight;		//вес
+	int grade[4];
 } A;
-void connect(char* link) {
-	const char* nameR = "F:/bread/in-class practice/networking/messages/request.bin"; //файл для запросов клиентов
-	const char* nameA = "F:/bread/in-class practice/networking/messages/answer.bin"; //файл для ответов сервера
-	ofstream out_REQ;
-	ifstream in_ANS;
-	long pred_size;
-	int answer;
-	while (true)
-	{
-		// передача данных от клиента серверу
-		cout << "Введите запрос: Фамилия Рост Вес" << endl;
-		cin >> A.name >> A.height >> A.weight;
-		cout << A.name << A.height << A.weight;
-		out_REQ.open(nameR, ios::app | ios::binary); //открытие файла REQUEST 
-		out_REQ.write((char*)&A, sizeof(A)); //запись запроса в файл REQUEST
-		out_REQ.close();
-
-		// поступил ответ от сервера?
-		in_ANS.open(nameA, ios::binary); //открытие файла ANSWER
-		in_ANS.seekg(0, ios::end); //переход в конец файла ANSWER
-		pred_size = in_ANS.tellg();
-		while (pred_size >= in_ANS.tellg())
-		{
-			Sleep(100); // ждем и переходим в конец файла ANSWER
-			in_ANS.seekg(0, ios::end);
-		}
-		// получение ответа от сервера	
-		in_ANS.seekg(pred_size, ios::beg); // на начало нового ответа
-		in_ANS.read((char*)&answer, sizeof(answer)); //считывание ответа
-		in_ANS.close();
-
-		// расшифровка ответа
-		switch (answer) {
-		case 0: {cout << "Недостаток веса\n"; break; }
-		case 1: {cout << "Норма веса\n"; break; }
-		case 2: {cout << "Избыток веса\n"; break; }
-		}
-	} //while
-}
 
 void main() {
 	setlocale(LC_ALL, "rus");
+
+	int seed = time(NULL);
+	srand(time(NULL));
+
 	// фаил для записи имени (регистрация на сервере)
 	string path = "F:/bread/in-class practice/networking/messages/";
-	string nameR = path + "connection.bin";
+	string registrationFile = path + "connection.bin";
 	
-	int name = (int)(&A);
+	// запандомил имя клиента
+	string clientName = to_string(rand() * (int)(sin(time(NULL)) + 2));
 
+	// зарегался на сервере
 	ofstream outConnect;
-	outConnect.open(nameR, ios::app | ios::binary); //открытие файла REQUEST 
-	outConnect.write((char*)&name, sizeof(name)); //запись запроса в файл REQUEST
+	outConnect.open(registrationFile, ios::app | ios::binary); //открытие файла connection.bin
+	outConnect << clientName;
 	outConnect.close();
-	
-	cout << "name: " << (name) << endl;
+	cout << "client name: " << (clientName) << endl;
+
+	cout << "Файл создан" << endl;
+	cout << "Начало работы" << endl;
+	// клиент начинает работу
+	bool isWaiting = false;
+	long fileSize = 0;
+	int answer = 0;
+	ofstream outFile;
+	ifstream inFile;
+	while (true)
+	{
+		if (isWaiting == false)
+		{
+			cout << "Введите ФИО и 4 оценки студента:" << endl;
+			cin >> A.name >> A.grade[0] >> A.grade[1] >> A.grade[2] >> A.grade[3];
+			
+			outFile.open(path + clientName + ".bin", ios::app | ios::binary);
+			outFile.write((char*)&A, sizeof(A));
+			outFile.seekp(0, ios::end);
+			long oldSize = fileSize;
+			fileSize = outFile.tellp();
+			outFile.close();
+			//cout << "old: " << oldSize << " new: " << fileSize << endl;
+			isWaiting = true;
+		}
+		else
+		{
+			inFile.open(path + clientName + ".bin", ios::binary);
+			inFile.seekg(fileSize, ios::beg);
+			inFile.read((char*)&answer, sizeof(answer));
+			inFile.clear();
+			inFile.seekg(0, ios::end);
+			long oldSize = fileSize;
+			fileSize = inFile.tellg();
+			inFile.close();
+			//cout << "old: " << oldSize << " new: " << fileSize << endl;
+
+			switch (answer)
+			{
+			case 1:
+				cout << "У " << A.name << " имеется задолжность!" << endl;
+				break;
+			case 2:
+				cout << "У " << A.name << " нет стипендии!" << endl;
+				break;
+			case 3:
+				cout << "У " << A.name << " обычная стипендия!" << endl;
+				break;
+			case 4:
+				cout << "У " << A.name << " повышенная стипендия!" << endl;
+				break;
+			default:
+				cout << "Ошибка! (Недопустимый ответ сервера) " << answer << endl;
+				break;
+			}
+			isWaiting = false;
+		}
+		Sleep(500);
+	}
 }

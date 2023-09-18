@@ -1,4 +1,7 @@
 ﻿  simple-client.cpp
-F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(33,26): warning C4244: =: преобразование "std::streamoff" в "long", возможна потеря данных
-F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(53,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(15,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(18,11): warning C4244: инициализация: преобразование "time_t" в "int", возможна потеря данных
+F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(19,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(54,28): warning C4244: =: преобразование "std::streamoff" в "long", возможна потеря данных
+F:\bread\in-class practice\networking\simple-client\simple-client\simple-client.cpp(67,27): warning C4244: =: преобразование "std::streamoff" в "long", возможна потеря данных
   simple-client.vcxproj -> F:\bread\in-class practice\networking\simple-client\Debug\simple-client.exe
