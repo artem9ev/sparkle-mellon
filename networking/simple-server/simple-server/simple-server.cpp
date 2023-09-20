@@ -39,7 +39,7 @@ int getStipendia() {
 		if (B.grade[i] == 2)
 		{
 			cout << "1" << endl;
-			return 1;
+			return 2;
 		}
 	}
 	for (int i = 0; i < 4; i++)
@@ -47,7 +47,7 @@ int getStipendia() {
 		if (B.grade[i] == 3)
 		{
 			cout << "2" << endl;
-			return 2;
+			return 3;
 		}
 	}
 	for (int i = 0; i < 4; i++)
@@ -55,11 +55,11 @@ int getStipendia() {
 		if (B.grade[i] == 4)
 		{
 			cout << "3" << endl;
-			return 3;
+			return 4;
 		}
 	}
 	cout << "4" << endl;
-	return 4;
+	return 5;
 }
 
 int main() {
@@ -141,11 +141,10 @@ int main() {
 				outFile.seekp(0, ios::end);
 				client[i].size = outFile.tellp();
 				outFile.close();
+				cout << endl;
 			}
 			haveNewInput = false;
 		}
-
-		cout << ". ";
 		Sleep(100);
 	}
 }

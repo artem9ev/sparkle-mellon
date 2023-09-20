@@ -64,16 +64,16 @@ void main() {
 			//cout << "old: " << oldSize << " new: " << fileSize << endl;
 			switch (answer)
 			{
-			case 1:
+			case 2:
 				cout << "У " << A.name << " имеется задолжность!" << endl;
 				break;
-			case 2:
+			case 3:
 				cout << "У " << A.name << " нет стипендии!" << endl;
 				break;
-			case 3:
+			case 4:
 				cout << "У " << A.name << " обычная стипендия!" << endl;
 				break;
-			case 4:
+			case 5:
 				cout << "У " << A.name << " повышенная стипендия!" << endl;
 				break;
 			case 500:
