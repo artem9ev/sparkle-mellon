@@ -1,3 +1,3 @@
 ﻿  lab 2 120923.cpp
-F:\bread\in-class practice\algorithm&optimization\lab 2 120923\lab 2 120923\lab 2 120923.cpp(56,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+F:\bread\in-class practice\algorithm&optimization\lab 2 120923\lab 2 120923\lab 2 120923.cpp(55,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   lab 2 120923.vcxproj -> F:\bread\in-class practice\algorithm&optimization\lab 2 120923\Debug\lab 2 120923.exe
