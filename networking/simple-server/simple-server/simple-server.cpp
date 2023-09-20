@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
+#include <string>
 #include <windows.h>
 #include <vector>
 
@@ -18,10 +19,24 @@ struct ClientData
 int answer;
 long size_pred;
 
+void printData() {
+	cout << endl << "Запрос получен: " << B.name << " ";
+	for (int i = 0; i < 4; i++)
+		cout << B.grade[i] << " ";
+	cout << endl;
+}
 int getStipendia() {
 	for (int i = 0; i < 4; i++)
 	{
-		if (B.grade[i] <= 2)
+		if (B.grade[i] < 2 || B.grade[i] > 5)
+		{
+			cout << "500" << endl;
+			return 500;
+		}
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		if (B.grade[i] == 2)
 		{
 			cout << "1" << endl;
 			return 1;
@@ -52,14 +67,18 @@ int main() {
 
 	long sizeConnections;
 
+	ofstream outConnection;
 	ifstream inputConnection;
 	ifstream newClientFile;
 
 	string path = "F:/bread/in-class practice/networking/messages/";
-	string fileName = path + "connection.bin";
+	string conFile = path + "connection.bin";
 	string newClientName;
-	// ----- начальные установки -----
-	inputConnection.open(fileName, ios::binary); //открытие файла connection.txt
+
+	outConnection.open(conFile, ios::binary | ios::app); // создадим connection.bin, если его нет
+	outConnection.close();
+	
+	inputConnection.open(conFile, ios::binary); //открытие файла connection.bin
 	inputConnection.seekg(0, ios::end);
 	sizeConnections = inputConnection.tellg();
 	inputConnection.close();
@@ -70,42 +89,33 @@ int main() {
 	cout << "Размер файла подключений: " << sizeConnections << endl;
 	
 	while (true) // начало работы сервера
-	{
-		// проверка наличия новых клиентов
-		inputConnection.open(fileName, ios::binary); //открытие файла connection.bin
-		inputConnection.seekg(0, ios::end); //переход в конец файла connection.txt
-		//while (sizeConnections >= inputConnection.tellg()) // есть новые запросы от клиентов?
-		//{
-		//	cout << ". ";
-		//	Sleep(500); 
-		//	inputConnection.seekg(0, ios::end);
-		//}
-		if (sizeConnections < inputConnection.tellg())
+	{   // проверка наличия новых клиентов
+		inputConnection.open(conFile, ios::binary); //открытие файла connection.bin
+		inputConnection.seekg(0, ios::end);
+		if (sizeConnections < inputConnection.tellg()) // найден новый клиент
 		{
-			// найден новый клиент
 			inputConnection.seekg(sizeConnections, ios::beg);
-			inputConnection >> newClientName;
+			inputConnection.read((char*)&newClientName, sizeof(newClientName));
 
 			ClientData newClientData;
 			newClientFile.open(path + newClientName + ".bin");
-			//newClientFile.clear();         НЕ РАБОТАЕТ
-			//newClientFile.seekg(0, ios::end); Всегда дает -1
+			newClientFile.seekg(0, ios::end);
 			newClientData.name = newClientName;
-			newClientData.size = 0;
+			newClientData.size = newClientFile.tellg();
 			client.push_back(newClientData);
+			newClientFile.close();
 
 			inputConnection.seekg(0, ios::end);
 			sizeConnections = inputConnection.tellg();
 			
 			cout << endl << "Новый клиент: " << newClientName << endl;
 			cout << "Размер файла подключений: " << sizeConnections << endl;
-			//cout << "Указатель в клиенте: " << newClientData.size << endl;
 		}
 		inputConnection.close();
 
 		// Обход текущих клиентов
 		bool haveNewInput = false;
-		int answer = 9;
+		int answer = 0;
 		ofstream outFile;
 		ifstream inFile;
 		for (int i = 0; i < client.size(); i++)
@@ -118,32 +128,24 @@ int main() {
 				inFile.seekg(client[i].size, ios::beg);
 				inFile.read((char*)&B, sizeof(B));
 				haveNewInput = true;
-				cout << endl << "Запрос получен: " << B.name << " ";
-				for (int i = 0; i < 4; i++)
-				{
-					cout << B.grade[i] << " ";
-				}
-				cout << endl;
-				//cout << "old: " << client[i].size << " new: " << inFile.tellg() << endl;
+				printData();
 			}
 			inFile.close();
 
 			if (haveNewInput)
 			{
-				cout << endl << "Ответ отправлен: ";
+				cout << "Ответ отправлен: ";
 				outFile.open(path + client[i].name + ".bin", ios::app | ios::binary);
 				answer = getStipendia();
 				outFile.write((char*)&answer, sizeof(answer));
 				outFile.seekp(0, ios::end);
-				long oldSize = client[i].size;
 				client[i].size = outFile.tellp();
 				outFile.close();
-				//cout << "old: " << oldSize << " new: " << client[i].size << endl;
 			}
 			haveNewInput = false;
 		}
 
 		cout << ". ";
-		Sleep(500);
+		Sleep(100);
 	}
 }
