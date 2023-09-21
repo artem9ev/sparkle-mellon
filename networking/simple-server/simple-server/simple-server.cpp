@@ -123,6 +123,7 @@ int main() {
 			inFile.open(path + client[i].name + ".bin", ios::binary);
 			inFile.clear();
 			inFile.seekg(0, ios::end);
+			cout << "old:" << client[i].size << "new: " << inFile.tellg() << endl;
 			if (client[i].size < inFile.tellg())
 			{
 				inFile.seekg(client[i].size, ios::beg);

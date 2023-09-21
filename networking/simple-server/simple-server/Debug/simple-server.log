@@ -3,5 +3,5 @@ F:\bread\in-class practice\networking\simple-server\simple-server\simple-server.
 F:\bread\in-class practice\networking\simple-server\simple-server\simple-server.cpp(104,44): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
 F:\bread\in-class practice\networking\simple-server\simple-server\simple-server.cpp(109,43): warning C4244: =: преобразование "std::streamoff" в "long", возможна потеря данных
 F:\bread\in-class practice\networking\simple-server\simple-server\simple-server.cpp(121,21): warning C4018: <: несоответствие типов со знаком и без знака
-F:\bread\in-class practice\networking\simple-server\simple-server\simple-server.cpp(142,35): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
+F:\bread\in-class practice\networking\simple-server\simple-server\simple-server.cpp(143,35): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
   simple-server.vcxproj -> F:\bread\in-class practice\networking\simple-server\Debug\simple-server.exe

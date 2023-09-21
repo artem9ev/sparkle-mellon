@@ -1,0 +1,4 @@
+﻿  mirin-client.cpp
+F:\bread\in-class practice\networking\mirin-client\mirin-client\mirin-client.cpp(24,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+F:\bread\in-class practice\networking\mirin-client\mirin-client\mirin-client.cpp(49,40): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
+  mirin-client.vcxproj -> F:\bread\in-class practice\networking\mirin-client\Debug\mirin-client.exe
