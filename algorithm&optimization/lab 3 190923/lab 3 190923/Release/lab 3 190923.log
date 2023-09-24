@@ -1,0 +1,10 @@
+﻿  lab 3 190923.cpp
+F:\bread\in-class practice\algorithm&optimization\lab 3 190923\lab 3 190923\lab 3 190923.cpp(91,20): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+F:\bread\in-class practice\algorithm&optimization\lab 3 190923\lab 3 190923\lab 3 190923.cpp(244,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+F:\bread\in-class practice\algorithm&optimization\lab 3 190923\lab 3 190923\lab 3 190923.cpp(254,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+  Создание кода
+  1 of 20 functions ( 5.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  lab 3 190923.vcxproj -> F:\bread\in-class practice\algorithm&optimization\lab 3 190923\Release\lab 3 190923.exe

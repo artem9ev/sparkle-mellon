@@ -1,2 +1,5 @@
 ﻿  lab 3 190923.cpp
-  lab 3 190923.vcxproj -> F:\bread\in-class practice\algorithm&optimization\lab 3 190923\Debug\lab 3 190923.exe
+F:\bread\in-class practice\algorithm&optimization\lab 3 190923\lab 3 190923\lab 3 190923.cpp(91,20): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+F:\bread\in-class practice\algorithm&optimization\lab 3 190923\lab 3 190923\lab 3 190923.cpp(244,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+F:\bread\in-class practice\algorithm&optimization\lab 3 190923\lab 3 190923\lab 3 190923.cpp(254,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+LINK : fatal error LNK1104: не удается открыть файл "F:\bread\in-class practice\algorithm&optimization\lab 3 190923\Debug\lab 3 190923.exe"
