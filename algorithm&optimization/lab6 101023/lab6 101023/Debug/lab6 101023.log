@@ -1,0 +1,3 @@
+﻿  lab6 101023.cpp
+F:\bread\in-class practice\algorithm&optimization\lab6 101023\lab6 101023\lab6 101023.cpp(110,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  lab6 101023.vcxproj -> F:\bread\in-class practice\algorithm&optimization\lab6 101023\Debug\lab6 101023.exe
