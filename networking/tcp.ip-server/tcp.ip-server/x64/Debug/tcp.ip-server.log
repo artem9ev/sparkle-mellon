@@ -1,0 +1,3 @@
+﻿  tcp.ip-server.cpp
+C:\Users\s0177245\source\repos\tcp.ip-server\tcp.ip-server\tcp.ip-server.cpp(36,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  tcp.ip-server.vcxproj -> C:\Users\s0177245\source\repos\tcp.ip-server\x64\Debug\tcp.ip-server.exe
