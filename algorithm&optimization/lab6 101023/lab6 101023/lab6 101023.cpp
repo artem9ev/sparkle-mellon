@@ -1,73 +1,12 @@
 ﻿#include <iostream>
+#include <fstream>
+
 #define CAPACITY 2000
 
 using namespace std;
 
-// анализ коллизий при загруженности таблицы от 0.05 до 0.95 с шагом 0.05
-// анализ для:
-// 1. хеширования
-// 2. лин. рехеширования // 1000 эксперименттов для каждой точки графика
-// 3. случ. рехеширования
-
 int hesh(char* str);
 int rehesh(int key);
-
-struct {
-    char* elem[CAPACITY];
-    int r_id[CAPACITY];
-    int size = 0; // кол-во добавленных эл-ов в таблицу
-    int l_collisions = 0; // кол-во коллизий при линейном рехешировании
-    int r_collisions = 0; // кол-во коллизий при случайном рехешировании
-    float full = 0.0f; // %
-    void newR() {
-        for (int i = 0; i < CAPACITY; i++)
-        {
-            r_id[i] = rand() % CAPACITY;
-        }
-    }
-    void addLin(char* str) {
-        int h = hesh(str); // хешируем
-        while (elem[h][0] != '\0') // пока не найдем свободное место...
-        {
-            h = rehesh(h); // рехешируем
-            l_collisions++; // +1 рехеш коллизия
-        }
-        elem[h] = str; // записывем в таблицу
-        size++; // +1 эл-нт в таблице
-        full = (float)size / CAPACITY; // пересчет процента заполненности
-    }
-    void addRand(char* str) {
-        int h = hesh(str); // хешируем
-        while (elem[h][0] != '\0') // пока не найдем свободное место...
-        {
-            h = (h + r_id[h]) % CAPACITY; // рехешируем
-            l_collisions++; // +1 рехеш коллизия
-        }
-        elem[h] = str; // записывем в таблицу
-        size++; // +1 эл-нт в таблице
-        full = (float)size / CAPACITY; // пересчет процента заполненности
-        cout << "hesh = " << h << "  \tvalue = " << elem[h] << endl;
-    }
-    void print() {
-        for (int i = 0; i < CAPACITY; i++)
-        {
-            cout << "hesh = " << i << "  \tvalue = " << elem[i];
-            cout << endl;
-            if (elem[i][0] != '\0')
-            {
-                
-            }
-        }
-    }
-    void clear() {
-        for (int i = 0; i < CAPACITY; i++)
-        {
-            elem[i] = (char*)"\0";
-        }
-        size = 0;
-        full = 0.0f;
-    }
-} table;
 
 struct obj {
     char* str;
@@ -82,6 +21,56 @@ struct obj {
         }
     }
 };
+
+struct {
+    obj elem[CAPACITY];
+    int r_id[CAPACITY];
+    int size = 0; // кол-во добавленных эл-ов в таблицу
+    int l_collisions = 0; // кол-во коллизий при линейном рехешировании
+    int r_collisions = 0; // кол-во коллизий при случайном рехешировании
+    float full = 0.0f; // %
+    void newR() {
+        for (int i = 0; i < CAPACITY; i++)
+        {
+            r_id[i] = rand() % CAPACITY;
+        }
+    }
+    void addLin(obj o) {
+        int h = hesh(o.str); // хешируем
+        while (elem[h].str != NULL) // пока не найдем свободное место...
+        {
+            h = rehesh(h); // рехешируем
+            l_collisions++; // +1 рехеш коллизия
+        }
+        elem[h].str = o.str; // записывем в таблицу
+        size++; // +1 эл-нт в таблице
+        full = (float)size / CAPACITY; // пересчет процента заполненности
+    }
+    void addRand(obj o) {
+        int h = hesh(o.str); // хешируем
+        int i = h;
+        while (elem[h].str != NULL) // пока не найдем свободное место...
+        {
+            h = (h + r_id[i]) % CAPACITY; // рехешируем
+            i = ++i % CAPACITY;
+            r_collisions++; // +1 рехеш коллизия
+        }
+        elem[h].str = o.str; // записывем в таблицу
+        size++; // +1 эл-нт в таблице
+        full = (float)size / CAPACITY; // пересчет процента заполненности
+    }
+    void clear() {
+        for (int i = 0; i < CAPACITY; i++)
+        {
+            delete[] elem[i].str;
+            elem[i].str = nullptr;
+        }
+        l_collisions = 0;
+        r_collisions = 0;
+        size = 0;
+        full = 0.0f;
+    }
+} table;
 
 int hesh(char* str) {
     long c = 0;
@@ -110,21 +99,39 @@ int main()
     srand(time(NULL));
     for (int i = 0; i < CAPACITY; i++)
     {
-        table.elem[i] = (char*)"\0";
-        //cout << table.elem[i] << endl;
+        table.elem[i].str = nullptr;
     }
     table.newR();
-    for (int i = 1900; i <= 1900; i += 100)
+
+    ofstream outRes("res.txt");
+
+    float sR[19];
+    float sL[19];
+    for (int i = 0; i < 19; i++)
     {
-        for (int k = 0; k < 1; k++) // эксперементируем
+        sR[i] = 0;
+        sL[i] = 0;
+    }
+
+    for (int i = 100, j = 0; i <= 1900; i += 100, j++)
+    {
+        for (int k = 0; k < 1000; k++) // эксперементируем
         {
-            while (table.full < (float)i / CAPACITY) {
+            while (table.full < (float)i / CAPACITY) { // хеширование с случайноным рехешированием
                 obj o;
-                table.addRand(o.str);
+                table.addRand(o);
             }
-            //table.print();
-            cout << "l_col   = " << table.l_collisions << endl;
+            sR[j] += (float)table.r_collisions / 1000;
+            table.clear();
+
+            while (table.full < (float)i / CAPACITY) { // хеширование с линейным рехешированием
+                obj o;
+                table.addLin(o);
+            }
+            sL[j] += (float)table.l_collisions / 1000;
             table.clear();
         }
+        cout << fixed << ((float)i / CAPACITY) << "    \t" << sR[j] << "    \t" << sL[j] << endl;
+        outRes << fixed << ((float)i / CAPACITY) << "    \t" << sR[j] << "    \t" << sL[j] << endl;
     }
 }
