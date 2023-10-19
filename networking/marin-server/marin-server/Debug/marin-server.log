@@ -1,8 +1,0 @@
-﻿  marin-server.cpp
-F:\bread\in-class practice\networking\marin-server\marin-server\marin-server.cpp(42,21): warning C4244: инициализация: преобразование "std::streamoff" в "long", возможна потеря данных
-F:\bread\in-class practice\networking\marin-server\marin-server\marin-server.cpp(65,45): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
-F:\bread\in-class practice\networking\marin-server\marin-server\marin-server.cpp(69,29): warning C4244: =: преобразование "std::streamoff" в "long", возможна потеря данных
-F:\bread\in-class practice\networking\marin-server\marin-server\marin-server.cpp(73,21): warning C4018: <: несоответствие типов со знаком и без знака
-F:\bread\in-class practice\networking\marin-server\marin-server\marin-server.cpp(83,57): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
-F:\bread\in-class practice\networking\marin-server\marin-server\marin-server.cpp(92,56): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
-  marin-server.vcxproj -> F:\bread\in-class practice\networking\marin-server\Debug\marin-server.exe
