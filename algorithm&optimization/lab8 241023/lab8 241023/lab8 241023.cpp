@@ -1,14 +1,14 @@
 ﻿#include <iostream>
+#include <queue>
 
 using namespace std;
 
-void inputGraph(bool** g, int n) {
+void inputGraph(int** g, int n) {
 	for (int i = 0; i < n; i++)
 	{
-		for (int k = i; k < n; k++)
+		for (int k = 0; k < n; k++)
 		{
 			cin >> g[i][k];
-			g[k][i] = g[i][k];
 		}
 	}
 }
@@ -17,73 +17,85 @@ int main()
 {
 	setlocale(LC_ALL, "RUS");
 
+	cout << "n = ";
     int n; cin >> n;
-	bool** graph = new bool*[n];
+	int** graph = new int*[n];
 	int* mark = new int[n];
-	int countVisited = 0;
 	bool* isVisited = new bool[n];
 	for (int i = 0; i < n; i++)
 	{
-		graph[i] = new bool[n];
+		graph[i] = new int[n];
 		mark[i] = i;
 		isVisited[i] = false;
 	}
 	inputGraph(graph, n);
-	// является ли граф связным
-	bool isSvyaz = true;
+	cout << endl;
 	for (int i = 0; i < n; i++)
 	{
-		bool v = false;
 		for (int k = 0; k < n; k++)
 		{
-			if (i != k)
+			cout << graph[i][k] << ' ';
+		}
+		cout << endl;
+	}
+	// является ли граф связным
+	bool isSvyaz = true;
+	queue<int> q;
+	q.push(0);
+	isVisited[0] = true;
+	while (q.size() > 0) {
+		int index = q.front();
+		q.pop();
+		for (int i = 0; i < n; i++)
+		{
+			if (isVisited[i] != true && graph[index][i] == 1)
 			{
-				v = v || graph[i][k];
+				q.push(i);
+				isVisited[i] = true;
 			}
 		}
-		if (v == false)
-		{
-			isSvyaz = false;
-			break;
-		}
 	}
+	for (int i = 0; i < n; i++)
+	{
+		isSvyaz = isSvyaz && isVisited[i];
+		isVisited[i] = false;
+	}
+	cout << "svyaz: " << isSvyaz << endl;
+	// 0 1 1 1 0 1 0 0 0 1 1 0 0 0 0 1 0 0 0 0 0 1 0 0 0
+	// 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 1 0 1 0 1 0
+	
+	// проверяем на наличие циклов
 	if (!isSvyaz)
 	{
 		cout << "граф не является связным!" << endl;
 	}
 	else
 	{
+		int countVisited = 0;
 		bool isTree = true;
-		int index = 0;
-		isVisited[0] = true;
-		countVisited++;
-		do // что я блин делаю...
+		q.push(0);
+		while (countVisited < n)
 		{
-			cout << "AAA" << countVisited << endl;
-			for (int k = 0; k < n; k++)
-			{
-				if (graph[index][k] && !isVisited[k])
-				{
-					if (mark[k] == 0)
-					{
-						countVisited = n;
-						isTree = false;
-						break;
-					}
-					mark[k] = 0;
-				}
-			}
+			int index = q.front();
+			q.pop();
+			isVisited[index] = true;
+			countVisited++;
+			cout << index << endl;
 			for (int i = 0; i < n; i++)
 			{
-				if (mark[i] == 0 && !isVisited[i])
+				if (graph[index][i] == 1 && !isVisited[i])
 				{
-					index = i;
-					isVisited[i] = true;
-					countVisited++;
-					break;
+					if (mark[i] == 0) // нашли цикл
+					{
+						isTree = false;
+						countVisited = n;
+						break;
+					}
+					mark[i] = 0;
+					q.push(i);
 				}
 			}
-		} while (countVisited < n);
+		}
 
 		if (isTree)
 		{
