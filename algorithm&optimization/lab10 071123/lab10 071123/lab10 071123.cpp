@@ -85,7 +85,7 @@ int main()
 	int n; cin >> n;
 
 
-	/*int** g1 = G1(n);
+	int** g1 = G1(n);
 	int** g2 = G2(g1, n);
 	for (int i = 0; i < n; i++)
 	{
@@ -99,5 +99,5 @@ int main()
 			cout << g2[i][k] << " ";
 		}
 		cout << endl;
-	}*/
+	}
 }

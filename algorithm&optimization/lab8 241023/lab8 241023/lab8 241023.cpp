@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
@@ -16,7 +17,6 @@ void inputGraph(int** g, int n) {
 int main()
 {
 	setlocale(LC_ALL, "RUS");
-
 	cout << "n = ";
     int n; cin >> n;
 	int** graph = new int*[n];
@@ -29,15 +29,7 @@ int main()
 		isVisited[i] = false;
 	}
 	inputGraph(graph, n);
-	cout << endl;
-	for (int i = 0; i < n; i++)
-	{
-		for (int k = 0; k < n; k++)
-		{
-			cout << graph[i][k] << ' ';
-		}
-		cout << endl;
-	}
+
 	// является ли граф связным
 	bool isSvyaz = true;
 	queue<int> q;
@@ -60,15 +52,12 @@ int main()
 		isSvyaz = isSvyaz && isVisited[i];
 		isVisited[i] = false;
 	}
-	cout << "svyaz: " << isSvyaz << endl;
 	// 0 1 1 1 0 1 0 0 0 1 1 0 0 0 0 1 0 0 0 0 0 1 0 0 0
 	// 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 1 0 1 0 1 0
 	
 	// проверяем на наличие циклов
 	if (!isSvyaz)
-	{
 		cout << "граф не является связным!" << endl;
-	}
 	else
 	{
 		int countVisited = 0;
@@ -80,7 +69,6 @@ int main()
 			q.pop();
 			isVisited[index] = true;
 			countVisited++;
-			cout << index << endl;
 			for (int i = 0; i < n; i++)
 			{
 				if (graph[index][i] == 1 && !isVisited[i])
@@ -96,15 +84,9 @@ int main()
 				}
 			}
 		}
-
 		if (isTree)
-		{
 			cout << "это дерево!";
-		}
 		else
-		{
 			cout << "это не дерево!!!";
-		}
 	}
-	
 }
