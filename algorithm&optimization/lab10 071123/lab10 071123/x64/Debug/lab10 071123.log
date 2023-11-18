@@ -1,3 +1,3 @@
 ﻿  lab10 071123.cpp
-D:\bread\sparkle-mellon\algorithm&optimization\lab10 071123\lab10 071123\lab10 071123.cpp(82,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\bread\sparkle-mellon\algorithm&optimization\lab10 071123\lab10 071123\lab10 071123.cpp(97,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   lab10 071123.vcxproj -> D:\bread\sparkle-mellon\algorithm&optimization\lab10 071123\x64\Debug\lab10 071123.exe

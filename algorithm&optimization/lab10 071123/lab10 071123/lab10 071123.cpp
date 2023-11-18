@@ -14,7 +14,7 @@ int** G1(int n) {
 	for (int i = 0; i < n; i++) {
 		for (int k = 0; k < n; k++) {
 			if (i == k) {
-				g[i][k] = 1;
+				g[i][k] = 0;
 			}
 			else if (k > i) {
 				g[i][k] = rand() % 2;
@@ -73,7 +73,31 @@ int** G2(int** g1, int n) {
 
 // проверяет являются ли графы g1 и g2 изоморфными
 bool iso(int** g1, int** g2, int n) {
+	// сравнивать вершины по их степеням?
+	vector<int> deg1(n, 0);
+	vector<int> deg2(n, 0);
+	vector<set<int> > list1(n, set<int>());
+	vector<set<int> > list2(n, set<int>());
+	for (int i = 0; i < n; i++)
+	{
+		for (int k = 0; k < n; k++)
+		{
+			deg1[i] += g1[i][k];
+			deg2[i] += g2[i][k];
+		}
+		list1.at(deg1[i]).insert(i);
+		list2.at(deg2[i]).insert(i);
+		cout << deg1[i] << " | " << deg2[i] << endl;
+	}
+	for (int i = 0; i < n; i++)
+	{
+		cout << deg1[i] << ": ";
+		for (int k = 0; k < list1[deg1[i]].size(); k++)
+		{
 
+		}
+	}
+	// выбираю вершину и смотрю что и куда идет...
 	return false;
 }
 
@@ -83,7 +107,6 @@ int main()
 
 	cout << "n = ";
 	int n; cin >> n;
-
 
 	int** g1 = G1(n);
 	int** g2 = G2(g1, n);
@@ -100,4 +123,6 @@ int main()
 		}
 		cout << endl;
 	}
+
+	iso(g1, g2, n);
 }

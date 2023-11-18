@@ -4,14 +4,10 @@
 
 using namespace std;
 
-void inputGraph(int** g, int n) {
-	for (int i = 0; i < n; i++)
-	{
-		for (int k = 0; k < n; k++)
-		{
+void inputGraph(vector<vector<int> > &g) {
+	for (int i = 0; i < g.size(); i++)
+		for (int k = 0; k < g.size(); k++)
 			cin >> g[i][k];
-		}
-	}
 }
 
 int main()
@@ -19,31 +15,30 @@ int main()
 	setlocale(LC_ALL, "RUS");
 	cout << "n = ";
     int n; cin >> n;
-	int** graph = new int*[n];
-	int* mark = new int[n];
-	bool* isVisited = new bool[n];
-	for (int i = 0; i < n; i++)
-	{
-		graph[i] = new int[n];
-		mark[i] = i;
-		isVisited[i] = false;
-	}
-	inputGraph(graph, n);
+	vector<vector<int> > graph(n, vector<int>(n));
+	inputGraph(graph);
 
-	// является ли граф связным
-	bool isSvyaz = true;
+	vector<int> parent(n, -1);
+	vector<bool> isVisited(n, false);
 	queue<int> q;
 	q.push(0);
 	isVisited[0] = true;
-	while (q.size() > 0) {
+	bool isSvyaz = true;
+	bool hasCycle = false;
+	while (q.size() > 0 && !hasCycle) {
 		int index = q.front();
 		q.pop();
 		for (int i = 0; i < n; i++)
 		{
-			if (isVisited[i] != true && graph[index][i] == 1)
+			if (!isVisited[i] && graph[index][i] == 1)
 			{
 				q.push(i);
+				parent[i] = index;
 				isVisited[i] = true;
+			}
+			else if (isVisited[i] && i != parent[index] && graph[index][i] == 1) {
+				hasCycle = true;
+				break;
 			}
 		}
 	}
@@ -54,39 +49,9 @@ int main()
 	}
 	// 0 1 1 1 0 1 0 0 0 1 1 0 0 0 0 1 0 0 0 0 0 1 0 0 0
 	// 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 1 0 1 0 1 0
-	
-	// проверяем на наличие циклов
-	if (!isSvyaz)
-		cout << "граф не является связным!" << endl;
+	// 0 1 1 0 0 1 0 0 1 1 1 0 0 0 0 0 1 0 0 1 0 1 0 1 0
+	if (isSvyaz && !hasCycle)
+		cout << "это дерево!";
 	else
-	{
-		int countVisited = 0;
-		bool isTree = true;
-		q.push(0);
-		while (countVisited < n)
-		{
-			int index = q.front();
-			q.pop();
-			isVisited[index] = true;
-			countVisited++;
-			for (int i = 0; i < n; i++)
-			{
-				if (graph[index][i] == 1 && !isVisited[i])
-				{
-					if (mark[i] == 0) // нашли цикл
-					{
-						isTree = false;
-						countVisited = n;
-						break;
-					}
-					mark[i] = 0;
-					q.push(i);
-				}
-			}
-		}
-		if (isTree)
-			cout << "это дерево!";
-		else
-			cout << "это не дерево!!!";
-	}
+		cout << "это не дерево!!!";
 }
