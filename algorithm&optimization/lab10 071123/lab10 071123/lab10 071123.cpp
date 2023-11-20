@@ -14,6 +14,7 @@ int** g1;
 int** g2;
 
 struct state {
+	bool isDead = false;
 	vector<int> synonym;
 	state() {
 		synonym = vector<int>(n, -1);
@@ -45,6 +46,16 @@ struct state {
 	}
 	int get(int node_1) {
 		return synonym[node_1];
+	}
+	int pos(int node_2) {
+		for (int i = 0; i < n; i++)
+		{
+			if (synonym[i] == node_2)
+			{
+				return i;
+			}
+		}
+		return -1;
 	}
 };
 
@@ -154,7 +165,7 @@ bool isEqualNodes(pair<vector<int>, vector<int> > &degs, int node_1, int node_2)
 
 bool iso(int deg, pair<vector<int>, vector<int> > &degs, pair< map<int, set<int> >, map<int, set<int> > > &list, state current_st = state(), string s = "")
 {
-	cout << "try:" << endl;
+	// дно рекурсии
 	if (deg == minDeg - 1)
 	{
 		if (current_st.isSetted())
@@ -168,19 +179,20 @@ bool iso(int deg, pair<vector<int>, vector<int> > &degs, pair< map<int, set<int>
 			return false;
 		}
 	}
-	cout << endl << s << "recursion: " << deg << endl; s += "   ";
+	cout << endl << s << "recursion: " << deg << endl;
 	vector<state> states;
 	states.push_back(state(current_st));
 	int id = 0;
 	// перебираю вершины текущей степени (deg)...
 	for (set<int>::iterator node_1 = list.first[deg].begin(); node_1 != list.first[deg].end(); node_1++)
 	{
+		bool hasSyn = false; // для проверки: смогли ли мы найти соответствие node_1 и node_2
 		for (set<int>::iterator node_2 = list.second[deg].begin(); node_2 != list.second[deg].end(); node_2++)
 		{
 			// если есть соответствие node_1 -> node_2, то...
 			if (isEqualNodes(degs, *node_1, *node_2))
 			{
-				//cout << s << "is equal: " << *node_1 << " | " << *node_2 << endl;
+				cout << s << "is equal: " << *node_1 << " | " << *node_2 << endl;
 				id = 0;
 				while (id < states.size() && (states[id].get(*node_1) != -1 || states[id].hasSyn(*node_2)))
 				{
@@ -188,12 +200,28 @@ bool iso(int deg, pair<vector<int>, vector<int> > &degs, pair< map<int, set<int>
 				}
 				if (id == states.size())
 				{
-					cout << "created new state: " << id << endl;
-					states.push_back(state(current_st)); // добавляю новое состояние, если в остальных уже задано соответствие node_1 -> node_2
+					cout << s << "created new state: " << id << endl;
+					states.push_back(state(states[id - 1])); // добавляю новое состояние, если в остальных уже задано соответствие node_1 -> node_2
 				}
-				cout << s << id << ": " << *node_1 << " -> " << *node_2 << endl;
 				states[id].set(*node_1, *node_2); // задаю соответствие node_1 -> node_2
+				states[id].isDead = false;
+
+				for (int i = 0; i < n; i++)
+				{
+					if (states[id].get(i) != -1 && g2[*node_2][i] == 1 && g1[*node_1][states[id].pos(i)] == 0)
+					{
+						cout << s << "try to equal: " << *node_1 << " -> " << *node_2 << " | g2: " << *node_2 << " " << i << " = 1 | g1: " << *node_1 << " " << states[id].pos(i) << " = 0" << endl;
+						cout << s << "PIZDEC!!! PIZDEC!!! PIZDEC!!! " << id << endl;
+						states[id].isDead = true;
+					}
+				}
+				hasSyn = hasSyn || !states[id].isDead;
 			}
+		}
+		if (!hasSyn)
+		{
+			cout << s << "ERROR! THERE'S node_1 WITHOUT SYNONYMIC node_2" << endl;
+			//return false;
 		}
 		/* ЗДЕСЬ СДЕЛАТЬ ПРОВЕРКУ НА НАЛИЧИЕ СОТОЯНИЯ для node_1 -> node_2
 		return false;
@@ -201,16 +229,21 @@ bool iso(int deg, pair<vector<int>, vector<int> > &degs, pair< map<int, set<int>
 	}
 	cout << s << "states: " << endl;
 	bool isIso = false;
+	string s1 = s + "\t";
 	for (vector<state>::iterator st = states.begin(); st != states.end(); st++)
 	{
-		cout << s << "st-" << deg << " : ";
+		cout << s << "[" << (st - states.begin()) << "] : ";
 		for (int k = 0; k < n; k++)
 		{
-			cout << (*st).synonym[k] << "\t";
+			cout << (*st).synonym[k] << "    ";
 		}
-		cout << endl;
-		isIso = isIso || iso(deg - 1, degs, list, *st, s);
+		cout << ((*st).isDead ? "is dead" : "ok") << endl;
+		if ((*st).isDead == false)
+		{
+			isIso = iso(deg - 1, degs, list, *st, s1) || isIso;
+		}
 	}
+		
 	return isIso;
 }
 
@@ -247,7 +280,7 @@ bool startIso(int** g1, int** g2, int n) {
 		}
 		cout << endl;
 	}
-	cout << maxDeg << "!" << endl;
+	cout << minDeg << "!  " << maxDeg << '!' << endl;
 
 	// выбираю вершину и смотрю что и куда идет...
 	return iso(maxDeg, degs, list);
