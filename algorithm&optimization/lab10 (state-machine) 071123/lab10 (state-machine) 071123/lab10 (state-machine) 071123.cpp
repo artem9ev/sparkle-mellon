@@ -6,6 +6,8 @@
 
 using namespace std;
 
+int steps = 0;
+
 int n;
 int minDeg;
 int maxDeg = -1;
@@ -18,32 +20,47 @@ struct state {
 	vector<int> synonym;
 	state() {
 		synonym = vector<int>(n, -1);
+		steps += n;
 	}
 	state(vector<int> v) {
 		synonym = v;
+		steps++;
 	}
 	bool isSetted() {
-		for (int i = 0; i < synonym.size(); i++)
+		steps++;
+		for (int i = 0; i < synonym.size(); i++) {
+			steps++;
 			if (synonym[i] == -1)
 				return false;
+		}
 		return true;
 	}
 	bool hasSyn(int node_2) {
+		steps++;
 		for (int i = 0; i < synonym.size(); i++)
+		{
+			steps++;
 			if (synonym[i] == node_2)
 				return true;
+		}
 		return false;
 	}
 	void set(int node_1, int node_2) {
+		steps++;
 		synonym[node_1] = node_2;
 	}
 	int get(int node_1) {
+		steps++;
 		return synonym[node_1];
 	}
 	int pos(int node_2) {
+		steps++;
 		for (int i = 0; i < n; i++)
+		{
+			steps++;
 			if (synonym[i] == node_2)
 				return i;
+		}
 		return -1;
 	}
 };
@@ -110,58 +127,61 @@ void G2() {
 // проверяет на соответствие вершины по степеням вершин их соседей
 bool isEqualNodes(int node_1, int node_2)
 {
+	steps += 2;
+	steps++; // отдельно считаю вызов хотя бы одного из return
 	if (degs.first[node_1] == n - 1) { // очевидно, что если вершины идут во все остальные, то их можно назвать одинаковыми
 		return true;
 	}
 	bool isEqual = true;
 	int toFind; // степень вершины для нахождения в графе g2
 	vector<bool> isVisited(n, false);
+	steps += 1 + n;
 	for (int i = 0; i < n; i++) {
-		if (!g1[node_1][i]) { // нашел ребро к i вершине в первом графе
-			continue; // если нет ребра, то пропускаем проверку
-		}
-		toFind = degs.first[i]; // записал степень вершины, которую хочу найти в графе g2
-		int k = 0;
-		while (k < n) {
-			if (g2[node_2][k] && !isVisited[k] && toFind == degs.second[k]) {
-				isVisited[k] = true;
-				break;
+		steps++;
+		if (g1[node_1][i]) { // нашел ребро к i вершине в первом графе
+			steps += 4;
+			toFind = degs.first[i]; // записал степень вершины, которую хочу найти в графе g2
+			int k = 0;
+			while (k < n) {
+				if (g2[node_2][k] && !isVisited[k] && toFind == degs.second[k]) {
+					isVisited[k] = true;
+					steps++;
+					break;
+				}
+				k++;
+				steps += 5;
 			}
-			k++;
-		}
-		if (k == n) { // если не получилось найти соответсвующую вершину, то конец
-			return false;
+			if (k == n) { // если не получилось найти соответсвующую вершину, то конец
+				return false;
+			}
 		}
 	}
 	return isEqual;
 }
 
 bool canPasteNode(state &st, int node_1, int node_2, string s) {
+	steps++;
 	for (int i = 0; i < n; i++) {
 		if (st.pos(i) != -1 && g2[node_2][i] == 1 && g1[node_1][st.pos(i)] == 0) {
 			return false;
 		}
+		steps += 3;
 	}
 	return true;
 }
 
 bool iso(map<int, set<int> >::reverse_iterator map_1, map<int, set<int> >::reverse_iterator map_2, set<int>::iterator it_node_1, state current_st = state(), string s = "")
 {
-	/*cout << s << "try " << (*map_1).first << endl;
-	if (it_node_1 == ((*map_1).second.end()))
-	{
-		cout << "SOS" << endl;
-	}*/
-	// дно рекурсии
-	
+	//cout << s << "try " << (*map_1).first << endl;
 	//cout<< s << "recursion: " << (*map_1).first << endl;
-	// перебираю вершины текущей степени (deg)...
+	steps++;
 	bool isIso = false;
+	steps++; // отдельно считаю вызов хотя бы одного из return
 	for (set<int>::iterator node_2 = (*map_2).second.begin(); node_2 != (*map_2).second.end(); node_2++) {
-		// если есть соответствие node_1 -> node_2, то...
 		/*cout << s << *it_node_1 << " - " << *node_2 << " ??? " << degs.first[*it_node_1] << " - " << degs.second[*node_2];
 		cout << " = " << isEqualNodes(*it_node_1, *node_2) << " " << (current_st.pos(*node_2) == -1);
 		cout << " " << canPasteNode(current_st, *it_node_1, *node_2, s) << endl;*/
+		steps += 3;
 		if (isEqualNodes(*it_node_1, *node_2) && current_st.pos(*node_2) == -1 && canPasteNode(current_st, *it_node_1, *node_2, s)) {
 			set<int>::iterator node_1 = it_node_1;
 			state st = current_st;
@@ -176,45 +196,48 @@ bool iso(map<int, set<int> >::reverse_iterator map_1, map<int, set<int> >::rever
 			}
 			cout << "[]" << endl;
 			cout << s << "B " << *node_1 << " " << *--(*next_map_1).second.end() << endl;*/
-
+			steps += 11;
 			if (*node_1 != *--(*next_map_1).second.end()) {
 				node_1++;
 			}
-			else if(next_map_1 != --list.first.rend()) {
-				//cout << s << "PONIZHENIE!" << endl;
+			else if(next_map_1 != --list.first.rend()) { // перехожу следующую степень вершины
 				next_map_2++;
 				next_map_1++;
 				node_1 = (*next_map_1).second.begin();
 			}
-			if (st.isSetted()) {
-				//cout << s << "POBEDA !!! POBEDA !!! POBEDA !!!" << endl << s << "return true" << endl;
-				return true;
+			if (st.isSetted()) { // дно рекурсии
+				return true; // найдено переименование вершин графа g2 именами вершин графа g1
 			}
-			else {
+			else { // иначе дальше погружаюсь в рекурсию
+				steps += 2;
 				isIso = isIso || iso(next_map_1, next_map_2, node_1, st, s + "    ");
 			}
 		}
 	}
 	//cout  << s << "end" << endl;
-	return isIso;
+	return isIso; // если не найдет хотя бы одной подходящей вершины в g2, то вернет false, иначе вернет результат след шага рекурсии
 }
 
 // проверяет являются ли графы g1 и g2 изоморфными
 bool startIso(int** g1, int** g2, int n) {
 	// сравнивать вершины по их степеням?
 	degs = pair<vector<int>, vector<int> >(vector<int>(n, 0), vector<int>(n, 0));
-	list;
+	steps += 2 + 2 * n;
+	list = pair< map<int, set<int> >, map<int, set<int> > >();
 	for (int i = 0; i < n; i++) {
 		for (int k = 0; k < n; k++) {
+			steps += 4;
 			degs.first[i] += g1[i][k];
 			degs.second[i] += g2[i][k];
 		}
 		list.first[degs.first[i]].insert(i);
 		list.second[degs.second[i]].insert(i);
+		steps += 2;
 	}
 	maxDeg = (*--list.first.end()).first;
 	minDeg = (*list.first.begin()).first;
-	for (map<int, set<int> >::iterator map1_it = list.first.begin(), map2_it = list.second.begin();
+	steps += 4;
+	/*for (map<int, set<int> >::iterator map1_it = list.first.begin(), map2_it = list.second.begin();
 		map1_it != list.first.end() && map2_it != list.second.end(); map1_it++, map2_it++) {
 		cout << (*map1_it).first << ": ";
 		for (set<int>::iterator it = (*map1_it).second.begin(); it != (*map1_it).second.end(); it++) {
@@ -225,39 +248,61 @@ bool startIso(int** g1, int** g2, int n) {
 			cout << *it << " ";
 		}
 		cout << endl;
-	}
+	}*/
 	//cout << minDeg << "!  " << maxDeg << '!' << endl << endl;
 
 	// выбираю вершину и смотрю что и куда идет...
+	steps++;
 	return iso(list.first.rbegin(), list.second.rbegin(), list.first[maxDeg].begin());
 }
 
 int main()
 {
-	cout << "key: ";
+	/*cout << "key: ";
 	int key; cin >> key;
-	srand(key);
+	srand(key);*/
+	srand(time(NULL));
 
-	cout << "n = ";
-	cin >> n;
+	/*cout << "n = ";
+	cin >> n;*/
 
-	G1();
-	G2();
-	/*for (int i = 0; i < n; i++)
+	int* sum = new int[20];
+	for (int n = 0; n < 20; n++)
 	{
-		for (int k = 0; k < n; k++)
+		for (int k = 0; k < 1000; k++)
 		{
-			cout << g1[i][k] << " ";
-		}
-		cout << "   |   ";
-		for (int k = 0; k < n; k++)
-		{
-			cout << g2[i][k] << " ";
-		}
-		cout << endl;
-	}
-	cout << endl;*/
 
-	bool flag = startIso(g1, g2, n);
-	cout << endl << (flag ? "iso" : "not iso") << endl;
+		}
+	}
+	for (int i = 0; i < 1000; i++)
+	{
+		steps = 0;
+		G1();
+		G2();
+		/*for (int i = 0; i < n; i++)
+		{
+			for (int k = 0; k < n; k++)
+			{
+				cout << g1[i][k] << " ";
+			}
+			cout << "   |   ";
+			for (int k = 0; k < n; k++)
+			{
+				cout << g2[i][k] << " ";
+			}
+			cout << endl;
+		}
+		cout << endl;*/
+
+		bool flag = startIso(g1, g2, n);
+		cout << (flag ? "iso " : "not iso ") << steps << endl << endl;
+		if (min > steps)
+		{
+			min = steps;
+		}if (max < steps)
+		{
+			max = steps;
+		}
+	}
+	cout << "min: " << min << " | max: " << max << endl;
 }
