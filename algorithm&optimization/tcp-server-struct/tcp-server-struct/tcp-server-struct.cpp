@@ -1,79 +1,54 @@
-﻿#include <iostream>
-#include <winsock2.h>
+﻿// SERVER TCP 
+//#include <stdafx.h> 
+#include <iostream>  
+#include <winsock2.h> 
+#include <windows.h> 
+#include <string> 
+#pragma comment (lib, "Ws2_32.lib")  
+using namespace std;
+#define SRV_PORT 1234 // сервер знает свой порт
+#define BUF_SIZE 64  
+const string QUEST = "Who are you?\n";
 
-#pragma comment(lib, "ws2_32.lib")
-
-struct Data {
-    int number;
-    char string1[50];
-    char string2[50];
+struct Message {
+	string text;
+	int id = 0;
 };
 
 int main() {
-    setlocale(LC_ALL, "RUS");
-    WSADATA wsaData;
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        std::cerr << "Ошибка при инициализации Winsock" << std::endl;
-        return 1;
-    }
-
-    SOCKET serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (serverSocket == INVALID_SOCKET) {
-        std::cerr << "Ошибка при создании сокета" << std::endl;
-        WSACleanup();
-        return 1;
-    }
-
-    sockaddr_in serverAddr;
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_addr.s_addr = INADDR_ANY;
-    serverAddr.sin_port = htons(12345);
-
-    if (bind(serverSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
-        std::cerr << "Ошибка при привязке сокета" << std::endl;
-        closesocket(serverSocket);
-        WSACleanup();
-        return 1;
-    }
-
-    if (listen(serverSocket, 5) == SOCKET_ERROR) {
-        std::cerr << "Ошибка при прослушивании сокета" << std::endl;
-        closesocket(serverSocket);
-        WSACleanup();
-        return 1;
-    }
-
-    std::cout << "Сервер запущен. Ожидание подключений..." << std::endl;
-
-    SOCKET clientSocket;
-    sockaddr_in clientAddr;
-    int clientAddrLen = sizeof(clientAddr);
-
-    clientSocket = accept(serverSocket, (struct sockaddr*)&clientAddr, &clientAddrLen);
-    if (clientSocket == INVALID_SOCKET) {
-        std::cerr << "Ошибка при принятии подключения" << std::endl;
-        closesocket(serverSocket);
-        WSACleanup();
-        return 1;
-    }
-
-    std::cout << "Подключение установлено" << std::endl;
-
-    Data receivedData;
-    recv(clientSocket, (char*)&receivedData, sizeof(receivedData), 0);
-
-    std::cout << "Получены данные:" << std::endl;
-    std::cout << "Число: " << receivedData.number << std::endl;
-    std::cout << "Строка 1: " << receivedData.string1 << std::endl;
-    std::cout << "Строка 2: " << receivedData.string2 << std::endl;
-
-    send(clientSocket, (char*)&receivedData, sizeof(receivedData), 0);
-
-    closesocket(clientSocket);
-    closesocket(serverSocket);
-    WSACleanup();
-
-    std::cout << "Соединения закрыты" << std::endl;
-
-    return 0;
+	char buff[1024];
+	if (WSAStartup(0x0202, (WSADATA*)&buff[0]))
+	{
+		cout << "Error WSAStartup \n" << WSAGetLastError();   // Ошибка!
+		return -1;
+	}
+	SOCKET s, s_new; // s - сокет сервера, s_new - сокет нового клиента
+	int from_len;
+	char buf[BUF_SIZE] = { 0 };
+	sockaddr_in sin, from_sin; // 
+	s = socket(AF_INET, SOCK_STREAM, 0); // создали сокет ()
+	sin.sin_family = AF_INET;
+	sin.sin_addr.s_addr = 0;
+	sin.sin_port = htons(SRV_PORT);
+	bind(s, (sockaddr*)&sin, sizeof(sin)); // добавляем установленную информацию сокету скрвера
+	Message msg, msg1;
+	listen(s, 3); // создаем очередь для принятия 3-х клиентов
+	while (1) {
+		from_len = sizeof(from_sin);
+		s_new = accept(s, (sockaddr*)&from_sin, &from_len); // из очереди извлекает очередного клиента (from_sin - структура куда попадает инф о клиенте)
+		cout << "new connected client! " << endl;
+		//msg = QUEST;
+		while (1) {
+			send(s_new, (char*)&msg, sizeof(msg), 0); // посылаем сообщение "Who are you?"
+			from_len = recv(s_new, (char*)buf, BUF_SIZE, 0);
+			buf[from_len] = 0;
+			msg1 = *(Message*)buf;
+			cout << msg1.text << endl;
+			if (msg1.text == "Bye") break; // прерываю диалог с этим клиентом
+			getline(cin, msg.text);
+		}
+		cout << "client is lost";
+		closesocket(s_new); // разрываем связь с отключенным клиентом
+	}
+	return 0;
 }

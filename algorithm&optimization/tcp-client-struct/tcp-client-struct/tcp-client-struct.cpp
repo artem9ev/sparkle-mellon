@@ -1,64 +1,59 @@
-﻿#include <iostream>
-#include <winsock2.h>
+﻿//#include <stdafx.h> // CLIENT TCP
+#include <iostream>  
+#define _WINSOCK_DEPRECATED_NO_WARNINGS  
+// подавление предупреждений библиотеки winsock2
+#include <winsock2.h> 
+#include <string>
+#include <windows.h>
+#pragma comment (lib, "Ws2_32.lib")
+#pragma warning(disable: 4996)  // подавление предупреждения 4996 
+using namespace std;
+#define SRV_HOST "localhost"  
+#define SRV_PORT 1234 
+#define CLNT_PORT 1235  
+#define BUF_SIZE 64 // размер буффера памяти для обмена сообщениями
+char TXT_ANSW[] = "I am your student\n";
 
-#pragma comment(lib, "ws2_32.lib")
-
-struct Data {
-    int number;
-    char string1[50];
-    char string2[50];
-};
+struct Message {
+	string text;
+	int id = 0;
+} message;
 
 int main() {
-    setlocale(LC_ALL, "RUS");
-    WSADATA wsaData;
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        std::cerr << "Ошибка при инициализации Winsock" << std::endl;
-        return 1;
-    }
-
-    SOCKET clientSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (clientSocket == INVALID_SOCKET) {
-        std::cerr << "Ошибка при создании сокета" << std::endl;\
-        WSACleanup();
-        return 1;
-    }
-
-    sockaddr_in serverAddr;
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(12345);
-    serverAddr.sin_addr.s_addr = inet_addr("localhost");
-
-    if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
-        std::cerr << "Ошибка при подключении к серверу" << std::endl;
-        closesocket(clientSocket);
-        WSACleanup();
-        return 1;
-    }
-
-    std::cout << "Подключение установлено" << std::endl;
-
-    Data sendData;
-    sendData.number = 42;
-    strncpy_s(sendData.string1, sizeof(sendData.string1), "Привет", _TRUNCATE);
-    strncpy_s(sendData.string2, sizeof(sendData.string2), "Мир", _TRUNCATE);
-
-    send(clientSocket, (char*)&sendData, sizeof(sendData), 0);
-
-    std::cout << "Данные отправлены" << std::endl;
-
-    Data receivedData;
-    recv(clientSocket, (char*)&receivedData, sizeof(receivedData), 0);
-
-    std::cout << "Получены данные от сервера:" << std::endl;
-    std::cout << "Число: " << receivedData.number << std::endl;
-    std::cout << "Строка 1: " << receivedData.string1 << std::endl;
-    std::cout << "Строка 2: " << receivedData.string2 << std::endl;
-
-    closesocket(clientSocket);
-    WSACleanup();
-
-    std::cout << "Соединение закрыто" << std::endl;
-
-    return 0;
+	char buff[1024]; // массив занимающий 1кб
+	if (WSAStartup(0x0202, (WSADATA*)&buff[0])) { // подключаем библиотеку версии ..
+		cout << "Error WSAStartup \n" << WSAGetLastError();  // Ошибка!
+		return -1;
+	}
+	SOCKET s; // указатель на сруктуру сокета
+	int from_len; // длина какой-то  там памяти
+	char buf[BUF_SIZE] = { 0 }; //
+	hostent* hp; // справочная структура какая-то..
+	sockaddr_in clnt_sin, srv_sin; // структура для инф сокета клиента и структура для инф сокета сервера
+	s = socket(AF_INET, SOCK_STREAM, 0); // 1 - домен, 2 - потоковое соеденение, 3 - 0 => tcp
+	clnt_sin.sin_family = AF_INET; // домен
+	clnt_sin.sin_addr.s_addr = 0; // кладем адрес текущего компьютера (значение 0 - автоматически заставляет определить его)
+	clnt_sin.sin_port = htons(CLNT_PORT); // задаем порт сокету
+	bind(s, (sockaddr*)&clnt_sin, sizeof(clnt_sin)); // кладет всю инф из clnr_sin в s
+	hp = gethostbyname(SRV_HOST); // получили хост сервера по имени
+	srv_sin.sin_port = htons(SRV_PORT); // помещаем порт
+	srv_sin.sin_family = AF_INET; // домен
+	((unsigned long*)&srv_sin.sin_addr)[0] =
+		((unsigned long**)hp->h_addr_list)[0][0]; // поместили адремм
+	connect(s, (sockaddr*)&srv_sin, sizeof(srv_sin)); // клиент связывается с сервером
+	Message serv_msg;
+	// общение
+	do {
+		from_len = recv(s, (char*)&buf, BUF_SIZE, 0); // ждет получения данных в буффер от сервера (2-ой параметр указывает куда сохр)
+		buf[from_len] = 0; // закрываем буффер с помощью 0
+		serv_msg = *(Message*)buf;
+		cout << "serv: " << serv_msg << " - " << serv_msg.text << endl;
+		getline(cin, message.text); // считываем ответ клиента с клавиатуры
+		message.id++;
+		int msg_size = sizeof(message);
+		send(s, (char*)&message, msg_size, 0); // посылаем ответ серверу
+	} while (message.text != "Bye");
+	cout << "exit to infinity" << endl;
+	cin.get();    closesocket(s);
+	return 0;
 }
