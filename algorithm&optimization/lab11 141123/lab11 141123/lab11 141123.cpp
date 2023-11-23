@@ -5,13 +5,15 @@
 using namespace std;
 
 struct tree {
-	tree* left, * right;
+	tree* dis, * kon;
 	int info;
 };
-
+// хуйня
 map<int, bool> t; // храним индекс X и  его знак??
 
-bool parse(string &knf)
+
+
+bool parse(string &knf) // херь
 {
 	for (int i = 0; i < knf.size(); i++) // удалил пробельчики
 		if (knf[i] == ' ')
@@ -22,6 +24,10 @@ bool parse(string &knf)
 		if (a == '(' || a == ')' || a == '-' || a == 'X' || a == 'x' || a == '&' || a == '\\' || a == '/' || (a > '0' || a < '9'))
 		{
 			
+		}
+		else
+		{
+			return false; // получен 
 		}
 	}
 	return true;
