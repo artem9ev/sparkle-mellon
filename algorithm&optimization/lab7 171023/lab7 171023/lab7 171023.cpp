@@ -1,32 +1,31 @@
 ﻿#include <iostream>
-#include <time.h>
-
+#include <fstream>
+#include <vector>
+#include <string>
 using namespace std;
 
-int N = 0;
-int L = 0;
+int N = 16777216;
 
-// на сайт отправляется поток запросов с адресов этого мн-ва
-// с одного адреса мб отправленно неограниченное число запросов
-// на сайте исп программа с алгоритмом Флажоле-Мартина, подсчитывающая кол-во различных адресов, с которых приходят запросы
-//
-// найти зависмость
-int hesh(char* url);
-int rang(int y);
-
-void printBin(int  y) {
-    for (int i = y, l = 0; l < L; i /= 2, l++)
+int h(char* url)
+{
+    int k = 0;
+    for (int i = 0; url[i]; i++)
     {
-        if (i % 2 == 0)
-        {
-            cout << '0';
-        }
-        else
-        {
-            cout << '1';
-        }
+        k = (31 * k + url[i]) % N;
     }
-    cout << "  -  ";
+    return k;
+}
+
+int rang(long long a)
+{
+    int k = 0;
+    for (long long x = a; x > 0;)
+    {
+        if (x % 2 == 1) break;
+        x = x >> 1;
+        k++;
+    }
+    return k;
 }
 
 void generateURL(char* a) {
@@ -46,7 +45,7 @@ struct {
             delete[] elem[i];
         }
         delete[] elem;
-        elem = new char*[m];
+        elem = new char* [m];
         size = m;
         for (int i = 0; i < m; i++)
         {
@@ -77,60 +76,60 @@ struct {
             }
         }
     }
-    void print() {
-        for (int i = 0; i < size; i++)
+    // дает случайный URL из текущего множества
+    char* get()
+    {
+        return elem[rand() % size];
+    }
+    double F_M(int s, int m) 
+    {
+        int B[64];
+        for (int i = 0; i < 64; i++) B[i] = 0;
+        for (int i = 0; i < s; i++)
         {
-            cout << (i + 1) << ":\t";
-            for (int k = 0; elem[i][k]; k++)
-            {
-                cout << elem[i][k];
-            }
-            int h = hesh(elem[i]);
-            cout << "\th: " << h << "\trang: ";
-            printBin(h);
-            cout << rang(h) << endl;
+            char* x = get();
+            int index = rang(h(x));
+            B[index] = 1;
         }
+        int R = 0;
+        for (int i = 0; i < 64; i++)
+        {
+            if (!B[i])
+            {
+                R = i;
+                break;
+            }
+        }
+        return (pow(2, R) / 0.77351); // me
     }
 } URL;
 
-// возвращает значение от 0 до N-1  (m < N)
-//
-int hesh(char* url) {
-    int k = 0;
-    for (int i = 0; url[i]; i++)
-    {
-        k += url[i];
-    }
-    return k;
-}
-
-int rang(int y) {
-    int r = 0;
-    for (int i = y, l = 0; l < L; i /= 2, l++)
-    {
-        if (i % 2 == 0)
-        {
-            r++;
-        }
-        else
-        {
-            break;
-        }
-    }
-    return r;
-}
-
 int main()
 {
-    setlocale(LC_ALL, "RUS");
-    cout << "m = ";
-    int m; cin >> m;
-    N = 5 * m;
-    for (int i = N; i > 0; i /= 2)
+    int valueM[] = { 10, 20, 30, 40, 50, 100, 500, 1000 };
+    int valueS[] = { 2, 5, 10, 100 };
+    ofstream res("res.txt");
+    cout << "m=\ts=\tme=\tE=\tD=\n";
+    res << "m=\ts=\tme=\tE=\tD=\n";
+    for (int i = 0; i < 8; i++)
     {
-        L++;
+        for (int y = 0; y < 4; y++)
+        {
+            int m = valueM[i];
+            int s = valueS[y] * m;
+            double me_cr = 0;
+            for (int l = 0; l < 1000; l++)
+            {
+                URL.create(m);
+                me_cr += URL.F_M(s, m);
+
+            }
+            me_cr /= 1000.0; // среднее me
+            double E = abs(m - me_cr);
+            double D = E / m;
+            cout << fixed << m << "\t" << s << "\t" << me_cr << "\t" << E << "\t" << D << "\n";
+            res << fixed << m << "\t" << s << "\t" << me_cr << "\t" << E << "\t" << D << "\n";
+        }
     }
-    cout << "N = " << N << "\tL = " << L << endl;
-    URL.create(m);
-    URL.print();
+    return 0;
 }
