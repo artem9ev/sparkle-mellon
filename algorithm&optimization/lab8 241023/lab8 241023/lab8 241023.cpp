@@ -10,14 +10,8 @@ void inputGraph(vector<vector<int> > &g) {
 			cin >> g[i][k];
 }
 
-int main()
-{
-	setlocale(LC_ALL, "RUS");
-	cout << "n = ";
-    int n; cin >> n;
-	vector<vector<int> > graph(n, vector<int>(n));
-	inputGraph(graph);
-
+bool isTree(vector<vector<int> >& graph) {
+	int n = graph.size();
 	vector<int> parent(n, -1);
 	vector<bool> isVisited(n, false);
 	queue<int> q;
@@ -47,11 +41,20 @@ int main()
 		isSvyaz = isSvyaz && isVisited[i];
 		isVisited[i] = false;
 	}
-	// 0 1 1 1 0 1 0 0 0 1 1 0 0 0 0 1 0 0 0 0 0 1 0 0 0
-	// 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 1 0 1 0 1 0
-	// 0 1 1 0 0 1 0 0 1 1 1 0 0 0 0 0 1 0 0 1 0 1 0 1 0
-	if (isSvyaz && !hasCycle)
+	return isSvyaz && !hasCycle;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "RUS");
+	cout << "n = ";
+    int n; cin >> n;
+	vector<vector<int> > graph(n, vector<int>(n));
+	inputGraph(graph);
+
+	
+	if (isTree(graph))
 		cout << "это дерево!";
 	else
-		cout << "это не дерево!!!";
+		cout << "это не дерево!";
 }

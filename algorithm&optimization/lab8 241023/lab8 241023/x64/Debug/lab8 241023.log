@@ -1,2 +1,3 @@
 ﻿  lab8 241023.cpp
+D:\bread\sparkle-mellon\algorithm&optimization\lab8 241023\lab8 241023\lab8 241023.cpp(14,8): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   lab8 241023.vcxproj -> D:\bread\sparkle-mellon\algorithm&optimization\lab8 241023\x64\Debug\lab8 241023.exe
