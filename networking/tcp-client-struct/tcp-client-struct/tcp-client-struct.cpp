@@ -47,7 +47,7 @@ int main() {
 		from_len = recv(s, (char*)&buf, BUF_SIZE, 0); // ждет получения данных в буффер от сервера (2-ой параметр указывает куда сохр)
 		buf[from_len] = 0; // закрываем буффер с помощью 0
 		serv_msg = *(Message*)buf;
-		cout << "serv: " << serv_msg << " - " << serv_msg.text << endl;
+		cout << "serv: " << serv_msg.id << " - " << serv_msg.text << endl;
 		getline(cin, message.text); // считываем ответ клиента с клавиатуры
 		message.id++;
 		int msg_size = sizeof(message);

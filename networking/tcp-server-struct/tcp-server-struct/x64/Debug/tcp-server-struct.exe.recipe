@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\bread\sparkle-mellon\algorithm&amp;optimization\tcp-server-struct\x64\Debug\tcp-server-struct.exe</FullPath>
+      <FullPath>D:\bread\sparkle-mellon\networking\tcp-server-struct\x64\Debug\tcp-server-struct.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

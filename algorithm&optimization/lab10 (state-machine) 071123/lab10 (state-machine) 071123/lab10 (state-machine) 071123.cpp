@@ -258,51 +258,32 @@ bool startIso(int** g1, int** g2, int n) {
 
 int main()
 {
-	/*cout << "key: ";
+	cout << "key: ";
 	int key; cin >> key;
-	srand(key);*/
+	srand(key);
 	srand(time(NULL));
 
-	/*cout << "n = ";
-	cin >> n;*/
+	cout << "n = ";
+	cin >> n;
 
-	int* sum = new int[20];
-	for (int n = 0; n < 20; n++)
+	steps = 0;
+	G1();
+	G2();
+	/*for (int i = 0; i < n; i++)
 	{
-		for (int k = 0; k < 1000; k++)
+		for (int k = 0; k < n; k++)
 		{
-
+			cout << g1[i][k] << " ";
 		}
+		cout << "   |   ";
+		for (int k = 0; k < n; k++)
+		{
+			cout << g2[i][k] << " ";
+		}
+		cout << endl;
 	}
-	for (int i = 0; i < 1000; i++)
-	{
-		steps = 0;
-		G1();
-		G2();
-		/*for (int i = 0; i < n; i++)
-		{
-			for (int k = 0; k < n; k++)
-			{
-				cout << g1[i][k] << " ";
-			}
-			cout << "   |   ";
-			for (int k = 0; k < n; k++)
-			{
-				cout << g2[i][k] << " ";
-			}
-			cout << endl;
-		}
-		cout << endl;*/
+	cout << endl;*/
 
-		bool flag = startIso(g1, g2, n);
-		cout << (flag ? "iso " : "not iso ") << steps << endl << endl;
-		if (min > steps)
-		{
-			min = steps;
-		}if (max < steps)
-		{
-			max = steps;
-		}
-	}
-	cout << "min: " << min << " | max: " << max << endl;
+	bool flag = startIso(g1, g2, n);
+	cout << (flag ? "iso " : "not iso ") << steps << endl << endl;
 }

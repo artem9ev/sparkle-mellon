@@ -163,6 +163,7 @@ bool canPasteNode(state& st, int node_1, int node_2, string s) {
 	return true;
 }
 
+// проверяет являются ли графы g1 и g2 изоморфными
 bool iso(map<int, set<int> >::reverse_iterator map_1, map<int, set<int> >::reverse_iterator map_2, set<int>::iterator it_node_1, state current_st = state(), string s = "")
 {
 	steps++;
@@ -197,7 +198,7 @@ bool iso(map<int, set<int> >::reverse_iterator map_1, map<int, set<int> >::rever
 	return isIso; // если не найдет хотя бы одной подходящей вершины в g2, то вернет false, иначе вернет результат след шага рекурсии
 }
 
-// проверяет являются ли графы g1 и g2 изоморфными
+// подготовка перед началом проверки
 bool startIso(int** g1, int** g2, int n) {
 	degs = pair<vector<int>, vector<int> >(vector<int>(n, 0), vector<int>(n, 0));
 	steps += 2 + 2 * n;
@@ -224,21 +225,23 @@ int main()
 {
 	srand(time(NULL));
 	ofstream file("res.txt");
-	long* sum = new long[20];
-	for (n = 1; n <= 50; n++)
+	int t = 20;
+	int w = 1000;
+	long* sum = new long[t];
+	for (n = 1; n <= t; n++)
 	{
-		sum[n] = 0;
-		for (int k = 0; k < 1000; k++)
+		int i = n - 1;
+		sum[i] = 0;
+		for (int k = 0; k < w; k++)
 		{
 			steps = 0;
 			G1();
 			G2();
 
 			bool flag = startIso(g1, g2, n);
-			//cout << (flag ? "iso " : "not iso ") << steps << endl << endl;
-			sum[n] += steps;
+			sum[i] += steps;
 		}
-		cout << fixed << n << "\t" << sum[n] / (float)1000 / 46<< endl;
-		file << fixed << n << "\t" << sum[n] / (float)1000 << endl;
+		cout << fixed << n << "\t" << sum[i] / (float)w << endl;
+		file << fixed << n << "\t" << sum[i] / (float)w << endl;
 	}
 }
