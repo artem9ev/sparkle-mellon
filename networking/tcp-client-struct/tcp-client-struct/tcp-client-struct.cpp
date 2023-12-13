@@ -12,7 +12,6 @@ using namespace std;
 #define SRV_PORT 1234 
 #define CLNT_PORT 1235  
 #define BUF_SIZE 64 // размер буффера памяти для обмена сообщениями
-char TXT_ANSW[] = "I am your student\n";
 
 struct Message {
 	string text;
@@ -48,9 +47,11 @@ int main() {
 		buf[from_len] = 0; // закрываем буффер с помощью 0
 		serv_msg = *(Message*)buf;
 		cout << "serv: " << serv_msg.id << " - " << serv_msg.text << endl;
+		cout << "input: ";
 		getline(cin, message.text); // считываем ответ клиента с клавиатуры
 		message.id++;
 		int msg_size = sizeof(message);
+		cout << "message size: " << msg_size << endl;
 		send(s, (char*)&message, msg_size, 0); // посылаем ответ серверу
 	} while (message.text != "Bye");
 	cout << "exit to infinity" << endl;

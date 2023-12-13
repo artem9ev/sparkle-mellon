@@ -8,6 +8,19 @@ short** image;
 short px0 = 0, px1 = 1;
 int n = 0;
 
+enum placing
+{
+    CENTER = 0,
+    TOPLEFT = 1,
+    TOPRIGHT = 2,
+    BOTTOMLEFT = 3,
+    BOTTOMRIGHT = 4,
+};
+
+struct coords {
+    int ly, lx, ry, rx;
+};
+
 void printPic() {
     for (int i = 0; i < n; i++) {
         for (int k = 0; k < n; k++) {
@@ -80,52 +93,150 @@ bool setImg(int x, int y, int width, int height) {
 }
 
 // ищет изображение на картинке
-void findImg() {
+coords findImgP() {
     int lx = 0, ly = 0;
     int rx = n, ry = n;
     bool isFinded = false;
-    for ( ; ly < n && !isFinded; ly++)
+    for (int i = 0; i < n; i++)
     {
-        for (; lx < n && !isFinded; lx++)
+        for (int k = 0; k < n; k++)
         {
-            if (picture[ly][lx] == px1)
+            if (picture[i][k] == px1)
             {
-                for (int j = lx; j < n && picture[ly][j] != px0; j++)
-                {
-                    rx = j;
-                }
-                for (int j = ly; j < n && picture[j][lx]; j++)
-                {
-                    ry = j;
-                }
-                if (rx - lx < 3 || ry - ly < 5)
-                {
-                    cout << "Изображение слишком маленькое, чтобы быть опознаным как буква P" << endl;
-                    return;
-                }
-
-                int center = ry - ly / 2 + ly;
-                for (int j = lx; j <= rx; j++)
-                {
-                    if (picture[center][j] == px0)
-                    {
-                        cout << "Неправильная центральная линия!" << endl; 
-                        return;
-                    }
-                }
-                for (int j = ry; j <= center; j++)
-                {
-                    if (picture[j][rx] == px0)
-                    {
-                        cout << "Неправильная крайная правая линия!" << endl;
-                        return;
-                    }
-                }
-                isFinded = true;
+                lx = k;
+                ly = i;
+                i = n;
+                k = n;
             }
         }
     }
-    cout << "Найдено изображение:\nЛевый верхний угол: " << lx << '\t' << ly << "\nПравый нижний угол: " << rx << '\t' << ry << endl;
+    for (int j = lx; j < n && picture[ly][j] != px0; j++)
+    {
+        rx = j; // иду по верхней линии
+    }
+    for (int j = ly; j < n && picture[j][lx] != px0; j++)
+    {
+        ry = j; // иду по левой боковой линии
+    }
+    if (rx - lx + 1 < 3 || ry - ly + 1 < 5)
+    {
+        cout << "Изображение слишком маленькое, чтобы быть опознаным как буква P" << endl;
+        return coords{ -1, -1, -1, -1 };
+    }
+    for (int i = ly; i <= ry; i++) {
+        for (int k = lx; k <= rx; k++) {
+            if ((k == lx) || (k == rx && i < (ry - ly + 1) / 2 + ly) || (i == ly) || (i == (ry - ly + 1) / 2 + ly))
+            {
+                if (picture[i][k] != px1) {
+                    cout << "wrong line! " << k << " " << i << endl;
+                    return coords{ -1, -1, -1, -1 };
+                }
+            }
+            else
+            {
+                if (picture[i][k] != px0) {
+                    cout << "extra pixels! " << i << " " << k << endl;
+                    return coords{ -1, -1, -1, -1 };
+                }
+            }
+        }
+    }    
+    return coords{ ly, lx, ry, rx };
+}
+
+void upscaleImg(coords coord, int scale, placing place) {
+    int width = coord.rx - coord.lx + 1;
+    int height = coord.ry - coord.ly + 1;
+    short** oldImg = new short*[height];
+    short** newImg = new short* [height * scale];
+    for (int i = 0; i < height; i++)
+    {
+        oldImg[i] = new short[width];
+        for (int k = 0; k < width; k++)
+        {
+            oldImg[i][k] = picture[coord.ly + i][coord.lx + k];
+            picture[coord.ly + i][coord.lx + k] = px0; 
+        }
+    }
+    for (int i = 0; i < height * scale; i++)
+    {
+        newImg[i] = new short[width * scale];
+        for (int k = 0; k < width * scale; k++)
+        {
+            if (oldImg[i / scale][k / scale] == px1)
+            {
+                newImg[i][k] = px1;
+            }
+            else
+            {
+                newImg[i][k] = px0;
+            }
+        }
+    }
+    int centerX = (coord.rx - coord.lx + 1) / 2 + coord.lx;
+    int centerY = (coord.ry - coord.ly + 1) / 2 + coord.ly;
+    switch (place)
+    {
+    case CENTER:
+        for (int i = centerY - height * scale / 2 + 1; i <= centerY + height * scale / 2; i++)
+        {
+            for (int k = centerX - width * scale / 2 + 1; k <= centerX + width * scale / 2; k++)
+            {
+                if (i >= 0 && k >= 0 && i < n && k < n)
+                {
+                    picture[i][k] = newImg[i - (centerY - height * scale / 2 + 1)][k - (centerX - width * scale / 2 + 1)];
+                }
+            }
+        }
+        break;
+    case TOPLEFT: // 1
+        for (int i = coord.ly; i < n && i < coord.ly + height * scale; i++)
+        {
+            for (int k = coord.lx; k < n && k < coord.lx + width * scale; k++)
+            {
+                picture[i][k] = newImg[i - coord.ly][k - coord.lx];
+            }
+        }
+        break;
+    case TOPRIGHT: // 2
+        for (int i = coord.ly; i < n && i < coord.ly + height * scale; i++)
+        {
+            for (int k = coord.rx - width * scale + 1; k <= coord.rx; k++)
+            {
+                if (k >= 0)
+                {
+                    picture[i][k] = newImg[i - coord.ly][k - (coord.rx - width * scale + 1)];
+                }
+            }
+        }
+        break;
+    case BOTTOMLEFT: // 3
+        for (int i = coord.ry - height * scale + 1; i <= coord.ry; i++)
+        {
+            for (int k = coord.lx; k < n && k < coord.lx + width * scale; k++)
+            {
+                if (i >= 0)
+                {
+                    picture[i][k] = newImg[i - (coord.ry - height * scale + 1)][k - coord.lx];
+                }
+            }
+        }
+        break;
+    case BOTTOMRIGHT: // 4
+        for (int i = coord.ry - height * scale + 1; i <= coord.ry; i++)
+        {
+            for (int k = coord.rx - width * scale + 1; k <= coord.rx; k++)
+            {
+                if (i >= 0 && k >= 0)
+                {
+                    picture[i][k] = newImg[i - (coord.ry - height * scale + 1)][k - (coord.rx - width * scale + 1)];
+                }
+            }
+        }
+        break;
+    default:
+        break;
+    }
 }
 
 int main()
@@ -149,9 +260,21 @@ int main()
     } while (!setImg(x, y, width, height));
 
     printPic();
+    coords coord = findImgP();
 
-    cout << "Во сколько раз увеличить изображение: ";
-    cin >> k;
+    if (coord.ly < 0 || coord.lx < 0 || coord.ry < 0 || coord.rx < 0)
+    {
+        cout << "не найдено изображение" << endl;
+    }
+    else
+    {
+        int place;
+        cout << "Во сколько раз увеличить изображение: ";
+        cin >> k;
+        cout << "Режим размещения: ";
+        cin >> place;
+        upscaleImg(coord, k, (placing)place);
+    }
 
-
+    printPic();
 }

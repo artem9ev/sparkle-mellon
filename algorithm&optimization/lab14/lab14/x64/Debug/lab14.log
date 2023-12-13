@@ -1,3 +1,3 @@
 ﻿  lab14.cpp
-D:\bread\sparkle-mellon\algorithm&optimization\lab14\lab14\lab14.cpp(134,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\bread\sparkle-mellon\algorithm&optimization\lab14\lab14\lab14.cpp(245,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   lab14.vcxproj -> D:\bread\sparkle-mellon\algorithm&optimization\lab14\x64\Debug\lab14.exe
