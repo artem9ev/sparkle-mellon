@@ -28,6 +28,18 @@ void generateG() {
 	}
 }
 
+void input() {
+	graph = new int* [n];
+	for (int i = 0; i < n; i++)
+		graph[i] = new int[n];
+	for (int i = 0; i < n; i++) {
+		for (int k = 0; k < n; k++) {
+			
+			cin >> graph[i][k];
+		}
+	}
+}
+
 bool hasSameCircle(vector<int> path) {
 	steps += 2;
 	bool hasSamePath = false;
@@ -136,7 +148,7 @@ int countCircles() {
 		}
 	}
 	// УДАЛИТЬ ЭТОТ ВЫВОД ПОТОМ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	/*for (int i = 0; i < circles.size(); i++)
+	for (int i = 0; i < circles.size(); i++)
 	{
 		cout << i << " -> circle: ";
 		for (int k = 0; k < circles[i].size(); k++)
@@ -144,7 +156,7 @@ int countCircles() {
 			cout << " " << circles[i][k];
 		}
 		cout << endl;
-	}*/
+	}
 	steps += 2;
 	int maxCount = 0;
 	// перебор перебор перебор...
@@ -197,7 +209,7 @@ int countCircles() {
 				}
 			}
 		}
-		//cout << i << " -> " << count << endl;
+		cout << i << " -> " << count << endl;
 	}
 	return maxCount;
 }
@@ -227,7 +239,10 @@ int main()
 	setlocale(LC_ALL, "RUS");
 	ofstream res("res.txt");
 
-	float sum[13];
+	cout << "n = "; cin >> n;
+	input();
+
+	/*float sum[13];
 	int i = 0;
 	for (n = 3; n <= 15; n++, i++)
 	{
@@ -241,7 +256,7 @@ int main()
 		}
 		cout << endl << "--- " << n << endl << endl;
 		res << fixed << n << "\t" << sum[i] << endl;
-	}
+	}*/
 	
 	cout << (countCircles() > 1 ? "да" : "нет");
 }

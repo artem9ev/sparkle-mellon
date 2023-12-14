@@ -6,11 +6,10 @@
 #pragma comment (lib, "Ws2_32.lib")  
 using namespace std;
 #define SRV_PORT 1234 // сервер знает свой порт
-#define BUF_SIZE 64  
-const string QUEST = "Who are you?\n";
+#define BUF_SIZE 512  
 
 struct Message {
-	string text;
+	char text[512];
 	int id = 0;
 };
 
@@ -36,15 +35,20 @@ int main() {
 		from_len = sizeof(from_sin);
 		s_new = accept(s, (sockaddr*)&from_sin, &from_len); // из очереди извлекает очередного клиента (from_sin - структура куда попадает инф о клиенте)
 		cout << "new connected client! " << endl;
+		//msg.text = "Hello!";
+		strcpy_s(msg.text, "Hello!");
 		while (1) {
-			send(s_new, (char*)&msg, sizeof(msg), 0); // посылаем сообщение "Who are you?"
+			cout << "send-" << sizeof(msg) << endl;
+			send(s_new, (char*)&msg, sizeof(msg), 0); // посылаем сообщение
 			from_len = recv(s_new, (char*)buf, BUF_SIZE, 0);
 			//buf[from_len] = 0;
+			cout << "got ";
 			clientMsg = *(Message*)buf;
-			cout << "client: " << clientMsg.text << endl;
+			cout << sizeof(clientMsg);
+			cout << " client: " << clientMsg.text << endl;
 			if (clientMsg.text == "Bye") break; // прерываю диалог с этим клиентом
 			cout << "input: ";
-			getline(cin, msg.text);
+			cin.getline(msg.text, sizeof(msg.text));
 		}
 		cout << "client is lost";
 		closesocket(s_new); // разрываем связь с отключенным клиентом

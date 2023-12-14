@@ -11,10 +11,10 @@ using namespace std;
 #define SRV_HOST "localhost"  
 #define SRV_PORT 1234 
 #define CLNT_PORT 1235  
-#define BUF_SIZE 64 // размер буффера памяти для обмена сообщениями
+#define BUF_SIZE 512 // размер буффера памяти для обмена сообщениями
 
 struct Message {
-	string text;
+	char text[512];
 	int id = 0;
 } message;
 
@@ -43,15 +43,19 @@ int main() {
 	Message serv_msg;
 	// общение
 	do {
+		cout << "got ";
 		from_len = recv(s, (char*)&buf, BUF_SIZE, 0); // ждет получения данных в буффер от сервера (2-ой параметр указывает куда сохр)
-		buf[from_len] = 0; // закрываем буффер с помощью 0
-		serv_msg = *(Message*)buf;
-		cout << "serv: " << serv_msg.id << " - " << serv_msg.text << endl;
+		//buf[from_len] = 0; // закрываем буффер с помощью 0
+		cout << "- " << ((*(Message*)buf).text != string()) << " - ";
+		serv_msg = *(Message*)*buf;
+		cout << sizeof(serv_msg.text);
+		cout << " serv: " << serv_msg.id << " - " << serv_msg.text << endl;
 		cout << "input: ";
-		getline(cin, message.text); // считываем ответ клиента с клавиатуры
+		cin.getline(message.text, sizeof(message.text)); // считываем ответ клиента с клавиатуры
 		message.id++;
 		int msg_size = sizeof(message);
 		cout << "message size: " << msg_size << endl;
+		cout << "text size: " << sizeof(message.text) << endl;
 		send(s, (char*)&message, msg_size, 0); // посылаем ответ серверу
 	} while (message.text != "Bye");
 	cout << "exit to infinity" << endl;

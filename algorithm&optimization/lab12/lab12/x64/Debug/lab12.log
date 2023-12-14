@@ -1,0 +1,5 @@
+﻿  lab12.cpp
+D:\bread\sparkle-mellon\algorithm&optimization\lab12\lab12\lab12.cpp(24,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\bread\sparkle-mellon\algorithm&optimization\lab12\lab12\lab12.cpp(38,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\bread\sparkle-mellon\algorithm&optimization\lab12\lab12\lab12.cpp(52,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  lab12.vcxproj -> D:\bread\sparkle-mellon\algorithm&optimization\lab12\x64\Debug\lab12.exe
