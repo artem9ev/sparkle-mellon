@@ -36,7 +36,8 @@ int main() {
 		s_new = accept(s, (sockaddr*)&from_sin, &from_len); // из очереди извлекает очередного клиента (from_sin - структура куда попадает инф о клиенте)
 		cout << "new connected client! " << endl;
 		//msg.text = "Hello!";
-		strcpy_s(msg.text, "Hello!");
+		strcpy_s(msg.text, "Hello!\0");
+		msg.id = 228;
 		while (1) {
 			cout << "send-" << sizeof(msg) << endl;
 			send(s_new, (char*)&msg, sizeof(msg), 0); // посылаем сообщение

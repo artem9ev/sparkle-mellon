@@ -46,10 +46,10 @@ int main() {
 		cout << "got ";
 		from_len = recv(s, (char*)&buf, BUF_SIZE, 0); // ждет получения данных в буффер от сервера (2-ой параметр указывает куда сохр)
 		//buf[from_len] = 0; // закрываем буффер с помощью 0
-		cout << "- " << ((*(Message*)buf).text != string()) << " - ";
-		serv_msg = *(Message*)*buf;
-		cout << sizeof(serv_msg.text);
-		cout << " serv: " << serv_msg.id << " - " << serv_msg.text << endl;
+		cout << "- " << ((*(Message*)buf).text) << " - ";
+		serv_msg = *(Message*)buf;
+		cout << " size of mes: " << sizeof(serv_msg.text);
+		cout << " id: " << serv_msg.id << " - " << serv_msg.text << endl;
 		cout << "input: ";
 		cin.getline(message.text, sizeof(message.text)); // считываем ответ клиента с клавиатуры
 		message.id++;
