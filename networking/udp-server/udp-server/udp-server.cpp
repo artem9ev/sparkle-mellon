@@ -39,7 +39,7 @@ int main() {
         return -1;
     }// шаг 4 обработка пакетов, присланных клиентами
     while (1) {
-        sockaddr_in    Caddr;
+        sockaddr_in Caddr;
         int Caddr_size = sizeof(Caddr);
         int bsize = recvfrom(Lsock, &buff[0], sizeof(buff) - 1, 0,
             (sockaddr*)&Caddr, &Caddr_size);
