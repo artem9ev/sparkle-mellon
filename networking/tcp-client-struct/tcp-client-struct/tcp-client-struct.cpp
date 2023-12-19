@@ -8,17 +8,40 @@
 #pragma comment (lib, "Ws2_32.lib")
 #pragma warning(disable: 4996)  // подавление предупреждения 4996 
 using namespace std;
-#define SRV_HOST "localhost"  
+#define SRV_HOST "192.168.0.13"  
 #define SRV_PORT 1234 
 #define CLNT_PORT 1235  
 #define BUF_SIZE 512 // размер буффера памяти для обмена сообщениями
 
-struct Message {
-	char text[512];
-	int id = 0;
-} message;
+enum Action {
+	STOP_SESSION = 0,
+	ADD_STUDENT = 1,
+    DELETE_STUDENT = 2,
+	GIVE_STUDENT = 3,
+};
 
-int main() {
+struct NewStudent {
+	char name[64];
+	int kurs;
+	int grade[4];
+} newStudent;
+
+struct RequestStudent {
+	char name[64];
+	int kurs;
+} requestStudent;
+
+struct Student {
+	char name[64];
+	int kurs;
+	int grade[4];
+	float averageGrade;
+	bool hasStipendia;
+} student;
+
+int main(){;
+    setlocale(LC_ALL, "RUS");
+
 	char buff[1024]; // массив занимающий 1кб
 	if (WSAStartup(0x0202, (WSADATA*)&buff[0])) { // подключаем библиотеку версии ..
 		cout << "Error WSAStartup \n" << WSAGetLastError();  // Ошибка!
@@ -40,25 +63,62 @@ int main() {
 	((unsigned long*)&srv_sin.sin_addr)[0] =
 		((unsigned long**)hp->h_addr_list)[0][0]; // поместили адремм
 	connect(s, (sockaddr*)&srv_sin, sizeof(srv_sin)); // клиент связывается с сервером
-	Message serv_msg;
+	cout << "Подключен к серверу" << endl;
+	
+	Action action = STOP_SESSION;
+
+	cout << "Доступные действия:\n0. Отключиться\n1. Добавить студента в список\n2. Удалить студента из списка\n3. Запросить данные о студенте" << endl;
 	// общение
 	do {
-		cout << "got ";
-		from_len = recv(s, (char*)&buf, BUF_SIZE, 0); // ждет получения данных в буффер от сервера (2-ой параметр указывает куда сохр)
-		//buf[from_len] = 0; // закрываем буффер с помощью 0
-		cout << "- " << ((*(Message*)buf).text) << " - ";
-		serv_msg = *(Message*)buf;
-		cout << " size of mes: " << sizeof(serv_msg.text);
-		cout << " id: " << serv_msg.id << " - " << serv_msg.text << endl;
-		cout << "input: ";
-		cin.getline(message.text, sizeof(message.text)); // считываем ответ клиента с клавиатуры
-		message.id++;
-		int msg_size = sizeof(message);
-		cout << "message size: " << msg_size << endl;
-		cout << "text size: " << sizeof(message.text) << endl;
-		send(s, (char*)&message, msg_size, 0); // посылаем ответ серверу
-	} while (message.text != "Bye");
+		int inputAction;
+		cout << endl << "Введите действие: ";
+		cin >> inputAction;
+		action = (Action)inputAction;
+		switch (action)
+		{
+		case STOP_SESSION:
+			break;
+		case ADD_STUDENT:
+			cout << "Введите имя студента: "; cin >> newStudent.name;
+			newStudent.name[63] = '\0';
+			cout << "Введите курс: "; cin >> newStudent.kurs;
+			cout << "Введите его оценки: " << endl;
+			for (int i = 0; i < 4; i++)
+			{
+				cout << i << ": ";
+				cin >> newStudent.grade[i];
+				if (newStudent.grade[i] > 5 || newStudent.grade[i] < 2)
+				{
+					cout << "Недопустиммые данные! Введите заново: " << endl;
+					i--;
+				}
+			}
+			send(s, (char*)&action, sizeof(action), 0);
+			send(s, (char*)&newStudent, sizeof(newStudent), 0);
+			break;
+		case DELETE_STUDENT:
+			cout << "Введите имя студента: "; cin >> requestStudent.name;
+			requestStudent.name[63] = '\0';
+			cout << "Введите курс: "; cin >> requestStudent.kurs;
+			send(s, (char*)&action, sizeof(action), 0);
+			send(s, (char*)&requestStudent, sizeof(requestStudent), 0);
+			break;
+		case GIVE_STUDENT:
+			cout << "Введите имя студента: "; cin >> requestStudent.name;
+			requestStudent.name[63] = '\0';
+			cout << "Введите курс: "; cin >> requestStudent.kurs;
+			send(s, (char*)&action, sizeof(action), 0);
+			send(s, (char*)&requestStudent, sizeof(requestStudent), 0);
+			recv(s, (char*)buf, BUF_SIZE, 0);
+			student = *(Student*)buf;
+			cout << endl << "Студент: " << student.name << endl << "Курс: " << student.kurs << endl << "Оценки: " << student.grade[0] << " " <<
+				student.grade[1] << " " << student.grade[2] << " " << student.grade[3] << endl << "Ср. балл: " << student.averageGrade << endl <<
+				(student.hasStipendia ? "Есть стипендия" : "Нет стипендии") << endl;
+			break;
+		}
+	} while (action != STOP_SESSION);
 	cout << "exit to infinity" << endl;
-	cin.get();    closesocket(s);
+	cin.get();    
+	closesocket(s);
 	return 0;
 }
