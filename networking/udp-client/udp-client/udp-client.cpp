@@ -8,7 +8,7 @@
 #pragma warning(disable: 4996)
 using namespace std;
 #define PORT 666
-#define SERVERADDR "127.0.0.1" // IP-адрес сервера
+#define SERVERADDR "192.168.0.13" // IP-адрес сервера
 
 int main()
 {
