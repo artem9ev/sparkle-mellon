@@ -1,2 +1,3 @@
 ﻿  udp-server.cpp
-  udp-server.vcxproj -> D:\bread\sparkle-mellon\algorithm&optimization\udp-server\x64\Debug\udp-server.exe
+D:\bread\sparkle-mellon\networking\udp-server\udp-server\udp-server.cpp(91,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  udp-server.vcxproj -> D:\bread\sparkle-mellon\networking\udp-server\x64\Debug\udp-server.exe
