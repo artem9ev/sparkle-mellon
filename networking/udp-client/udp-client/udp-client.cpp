@@ -10,6 +10,35 @@ using namespace std;
 #define PORT 666
 #define SERVERADDR "192.168.0.13" // IP-адрес сервера
 
+enum Cell {
+    EMPTY = 0,
+    MISS = 1,
+    SHIP = 2,
+    DESTROYD = 3,
+};
+
+struct Field {
+    Cell field[10][10];
+};
+
+void printField(Field F) {
+    for (int i = 0; i < 10; i++)
+    {
+        for (int k = 0; k < 10; k++)
+        {
+            if (F.field[i][k] == EMPTY)
+            {
+                cout << "- ";
+            }
+            if (F.field[i][k] == SHIP)
+            {
+                cout << "# ";
+            }
+        }
+        cout << endl;
+    }
+}
+
 int main()
 {
     char buff[10 * 1014];
@@ -58,16 +87,17 @@ int main()
         // Прием сообщения с сервера
         sockaddr_in SRaddr;
         int SRaddr_size = sizeof(SRaddr);
-        int n = recvfrom(my_sock, buff, sizeof(buff), 0,
+        int n = recvfrom(my_sock, (char*)&buff, sizeof(Field), 0,
             (sockaddr*)&SRaddr, &SRaddr_size);
         if (n == SOCKET_ERROR) {
             cout << "RECVFROM() ERROR:" << WSAGetLastError() << "\n";
             closesocket(my_sock);
             WSACleanup();  return -1;
         }
-        buff[n] = '\0';
+        //buff[n] = '\0';
+        Field F = *(Field*)buff;
         // Вывод принятого с сервера сообщения на экран
-        cout << "S=>C:" << buff << "\n";
+        printField(F);
     }
     // шаг последний - выход
     closesocket(my_sock);

@@ -1,3 +1,0 @@
-﻿  tcp-ip-client.cpp
-C:\Users\s0177245\source\repos\tcp-ip-client\tcp-ip-client\tcp-ip-client.cpp(43,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  tcp-ip-client.vcxproj -> C:\Users\s0177245\source\repos\tcp-ip-client\x64\Debug\tcp-ip-client.exe

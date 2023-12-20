@@ -1,2 +1,6 @@
 ﻿  tcp-server-struct.cpp
-  tcp-server-struct.vcxproj -> D:\bread\sparkle-mellon\networking\tcp-server-struct\x64\Debug\tcp-server-struct.exe
+K:\bread\sparkle-mellon\networking\tcp-server-struct\tcp-server-struct\tcp-server-struct.cpp(126,28): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
+K:\bread\sparkle-mellon\networking\tcp-server-struct\tcp-server-struct\tcp-server-struct.cpp(131,32): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
+K:\bread\sparkle-mellon\networking\tcp-server-struct\tcp-server-struct\tcp-server-struct.cpp(171,28): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
+K:\bread\sparkle-mellon\networking\tcp-server-struct\tcp-server-struct\tcp-server-struct.cpp(176,32): warning C4244: =: преобразование "std::streamoff" в "int", возможна потеря данных
+  tcp-server-struct.vcxproj -> K:\bread\sparkle-mellon\networking\tcp-server-struct\x64\Debug\tcp-server-struct.exe
