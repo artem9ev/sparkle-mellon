@@ -4,12 +4,91 @@
 #include <windows.h>
 #include <string>
 #include <iostream>
+#include <time.h>
 #pragma comment(lib, "Ws2_32.lib")
 #pragma warning(disable: 4996)
 using namespace std;
 #define PORT 666    // порт сервера
-#define sHELLO "Hello, STUDENT\n"
+
+enum Cell {
+    EMPTY = 0,
+    MISS = 1,
+    SHIP = 2,
+    DESTROYD = 3,
+};
+
+struct Field {
+    Cell field[10][10];
+};
+
+Field GenerateField() { // 4-1 2-3 3-2 4-1
+    Field F;
+    bool isEmpty[10][10];
+    for (int i = 0; i < 10; i++)
+    {
+        for (int k = 0; k < 10; k++) {
+
+            F.field[i][k] = EMPTY;
+            isEmpty[i][k] = true;
+        }
+    }
+    // ставлю 4 клеточный
+    bool isPlaced = false;
+    for (int shipSize = 4; shipSize > 0; shipSize--)
+    {
+        for (int countShips = 0; countShips < 5 - shipSize; countShips++)
+        {
+            isPlaced = false;
+            while (!isPlaced) {
+
+                bool canPlace = true;
+                bool orient = (bool)(rand() % 2);
+                int mainAxis = rand() % 10;
+                int secondAxis = rand() % (10 - shipSize + 1);
+                for (int i = secondAxis; i < secondAxis + shipSize; i++) {
+                    if (isEmpty[orient * mainAxis + !orient * i][!orient * mainAxis + orient * i] == false)
+                    {
+                        canPlace = false;
+                        break;
+                    }
+                }
+                if (canPlace == true)
+                {
+                    for (int i = secondAxis; i < secondAxis + shipSize; i++) {
+                        F.field[orient * mainAxis + !orient * i][!orient * mainAxis + orient * i] = SHIP;
+                    }
+                    for (int k = mainAxis - 1; k <= mainAxis + 1; k++)
+                    {
+                        for (int i = secondAxis - 1; i < secondAxis + shipSize + 1; i++)
+                        {
+                            if (k > 0 && k < 10 && i > 0 && i < 10)
+                            {
+                                isEmpty[orient * k + !orient * i][!orient * k + orient * i] = false;
+                            }
+                        }
+                    }
+                    isPlaced = true;
+                }
+            }
+        }
+    }
+
+    return F;
+}
+
+void printField(Field F) {
+    for (int i = 0; i < 10; i++)
+    {
+        for (int k = 0; k < 10; k++)
+        {
+            cout << F.field[i][k] << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main() {
+    srand(time(0));
     char buff[1024];
     cout << "UDP DEMO ECHO-SERVER\n";
     // шаг 1 - подключение библиотеки 
@@ -51,9 +130,12 @@ int main() {
         cout << "NEW DATAGRAM!\n" <<
             ((hst) ? hst->h_name : "Unknown host") << "/n" <<
             inet_ntoa(Caddr.sin_addr) << "/n" << ntohs(Caddr.sin_port) << '\n';
-        buff[bsize] = '\0';              // добавление завершающего нуля
+        //buff[bsize] = '\0';              // добавление завершающего нуля
         cout << "C=>S:" << buff << '\n';        // Вывод на экран 
         // посылка датаграммы клиенту
-        sendto(Lsock, &buff[0], bsize, 0, (sockaddr*)&Caddr, sizeof(Caddr));
+        Field F = GenerateField();
+        cout << "generated: " << sizeof(F) << endl;
+        printField(F);
+        sendto(Lsock, (char*)&F, sizeof(F), 0, (sockaddr*)&Caddr, sizeof(Caddr));
     }      return 0;
 }

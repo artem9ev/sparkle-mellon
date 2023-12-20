@@ -1,2 +1,3 @@
 ﻿  tcp-client-struct.cpp
+D:\bread\sparkle-mellon\networking\tcp-client-struct\tcp-client-struct\tcp-client-struct.cpp(51,6): warning C4101: from_len: неиспользованная локальная переменная
   tcp-client-struct.vcxproj -> D:\bread\sparkle-mellon\networking\tcp-client-struct\x64\Debug\tcp-client-struct.exe
