@@ -1,3 +1,2 @@
-﻿  udp-client.cpp
-D:\bread\sparkle-mellon\networking\udp-client\udp-client\udp-client.cpp(85,47): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+﻿  LINK : не найден или не выполнена сборка D:\bread\sparkle-mellon\networking\udp-client\x64\Debug\udp-client.exe при последней инкрементной компоновке; выполняется полная компоновка
   udp-client.vcxproj -> D:\bread\sparkle-mellon\networking\udp-client\x64\Debug\udp-client.exe

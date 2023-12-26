@@ -1,18 +1,42 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
-        PassengerShip pasShip = new PassengerShip("Lagoon", -3, 9, 19, 400, 80);
-        Ship practiceTarget1 = new Ship("target1", 10, 7, 0);
-        Ship practiceTarget2 = new Ship("target2", -10, 7, 0);
-        Warship warship = new Warship("Cascad", 6, 8, 30, 6, 7);
 
-        pasShip.print();
-        practiceTarget1.print();
-        practiceTarget2.print();
-        warship.print();
+        Spisok spisok = new Spisok();
+        spisok.addAdressP(new AdressPoshta("MIRA", "MOSKOW", "RUSSIA", "89342"));
+        spisok.addAdressP(new AdressPoshta("MIRA1", "MOSKOW1", "RUSSIA1", "75904"));
+        spisok.addAdressP(new AdressPoshta("MIRA2", "MOSKOW2", "RUSSIA2", "32466"));
 
-        System.out.println("Can hit target1: " + warship.canHit(practiceTarget1.getCoordinate()));
-        System.out.println("Can hit target2: " + warship.canHit(practiceTarget2.getCoordinate()));
+
+        // Поиск записи по признаку
+        AdressPoshta foundRecord = spisok.searchCountryObject("RUSSIA");
+        System.out.println();
+        System.out.println("Найденная запись: " + foundRecord.toString());
+        System.out.println();
+
+        // Удаление записи
+        System.out.println("delete of adress poshta");
+        spisok.removeAdressPoshta(foundRecord);
+
+        // Сортировка записей по названию
+        System.out.println("Сортировка по country:");
+        spisok.sortByCountry();
+        spisok.print();
+
+        // Сортировка записей по стране
+        System.out.println("Сортировка по city:");
+        spisok.sortByCity();
+        spisok.print();
+
+        // Сортировка записей по широте
+        System.out.println("Сортировка по street:");
+        spisok.sortByStreet();
+        spisok.print();
+
+        // Сортировка записей по долготе
+        System.out.println("Сортировка по posta code:");
+        spisok.sortByPostaCode();
+        spisok.print();
     }
 }
+
