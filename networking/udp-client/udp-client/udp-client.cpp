@@ -8,31 +8,24 @@
 #pragma warning(disable: 4996)
 using namespace std;
 #define PORT 666
-#define SERVERADDR "192.168.0.13" // IP-адрес сервера
-
-enum Cell {
-    EMPTY = 0,
-    MISS = 1,
-    SHIP = 2,
-    DESTROYD = 3,
-};
+#define SERVERADDR "127.0.0.1" // IP-адрес сервера
 
 struct Field {
-    Cell field[10][10];
-};
+    int field[10][10];
+} F;
 
-void printField(Field F) {
+void printField() {
     for (int i = 0; i < 10; i++)
     {
         for (int k = 0; k < 10; k++)
         {
-            if (F.field[i][k] == EMPTY)
+            if (F.field[i][k] == 1)
             {
-                cout << "- ";
+                cout << " #";
             }
-            if (F.field[i][k] == SHIP)
+            else
             {
-                cout << "# ";
+                cout << " -";
             }
         }
         cout << endl;
@@ -41,6 +34,7 @@ void printField(Field F) {
 
 int main()
 {
+    setlocale(LC_ALL, "RUS");
     char buff[10 * 1014];
     cout << "UDP Demo Client\nType quit to quit \n";
     // Шаг 1 - иницилизация библиотеки Winsocks
@@ -61,6 +55,7 @@ int main()
     sockaddr_in Daddr;
     Daddr.sin_family = AF_INET;
     Daddr.sin_port = htons(PORT);
+
     // определение IP-адреса узла
     if (inet_addr(SERVERADDR))
         Daddr.sin_addr.s_addr = inet_addr(SERVERADDR);
@@ -76,32 +71,28 @@ int main()
         }
     while (1) {
         // чтение сообщения с клавиатуры
-        cout << "S<=C:";
-        string SS;
-        getline(cin, SS);
-        if (SS == "quit") break;
-
+        cout << "S<=C:" << endl;
+        cout << "System: Введите seed: ";
+        int seed; cin >> seed;
         // Передача сообщений на сервер
-        sendto(my_sock, (char*)&SS[0], SS.size(), 0,
-            (sockaddr*)&Daddr, sizeof(Daddr));
+        sendto(my_sock, (char*)&seed, sizeof(seed), 0, (sockaddr*)&Daddr, sizeof(Daddr));
         // Прием сообщения с сервера
         sockaddr_in SRaddr;
         int SRaddr_size = sizeof(SRaddr);
-        int n = recvfrom(my_sock, (char*)&buff, sizeof(Field), 0,
-            (sockaddr*)&SRaddr, &SRaddr_size);
+        int n = recvfrom(my_sock, (char*)&buff, sizeof(buff), 0, (sockaddr*)&SRaddr, &SRaddr_size);
         if (n == SOCKET_ERROR) {
             cout << "RECVFROM() ERROR:" << WSAGetLastError() << "\n";
             closesocket(my_sock);
             WSACleanup();  return -1;
         }
         //buff[n] = '\0';
-        Field F = *(Field*)buff;
+        F = *(Field*)buff;
         // Вывод принятого с сервера сообщения на экран
-        printField(F);
+        cout << "S=>C:\n";
+        printField();
     }
     // шаг последний - выход
     closesocket(my_sock);
-    WSACleanup();     return 0;
+    WSACleanup();
+    return 0;
 }
-
-

@@ -4,22 +4,26 @@
 #include <windows.h>
 #include <string>
 #include <iostream>
-#include <time.h>
 #pragma comment(lib, "Ws2_32.lib")
 #pragma warning(disable: 4996)
 using namespace std;
 #define PORT 666    // порт сервера
-
-enum Cell {
-    EMPTY = 0,
-    MISS = 1,
-    SHIP = 2,
-    DESTROYD = 3,
-};
+#define sHELLO "Hello, STUDENT\n"
 
 struct Field {
-    Cell field[10][10];
-};
+    int field[10][10];
+} F;
+
+void printField() {
+    for (int i = 0; i < 10; i++)
+    {
+        for (int k = 0; k < 10; k++)
+        {
+            cout << F.field[i][k] << " ";
+        }
+        cout << endl;
+    }
+}
 
 Field GenerateField() { // 4-1 2-3 3-2 4-1
     Field F;
@@ -28,7 +32,7 @@ Field GenerateField() { // 4-1 2-3 3-2 4-1
     {
         for (int k = 0; k < 10; k++) {
 
-            F.field[i][k] = EMPTY;
+            F.field[i][k] = 0;
             isEmpty[i][k] = true;
         }
     }
@@ -55,7 +59,7 @@ Field GenerateField() { // 4-1 2-3 3-2 4-1
                 if (canPlace == true)
                 {
                     for (int i = secondAxis; i < secondAxis + shipSize; i++) {
-                        F.field[orient * mainAxis + !orient * i][!orient * mainAxis + orient * i] = SHIP;
+                        F.field[orient * mainAxis + !orient * i][!orient * mainAxis + orient * i] = 1;
                     }
                     for (int k = mainAxis - 1; k <= mainAxis + 1; k++)
                     {
@@ -76,20 +80,11 @@ Field GenerateField() { // 4-1 2-3 3-2 4-1
     return F;
 }
 
-void printField(Field F) {
-    for (int i = 0; i < 10; i++)
-    {
-        for (int k = 0; k < 10; k++)
-        {
-            cout << F.field[i][k] << " ";
-        }
-        cout << endl;
-    }
-}
-
-int main() {
-    srand(time(0));
+int main() 
+{
+    setlocale(LC_ALL, "RUS");
     char buff[1024];
+    int answer = -1;
     cout << "UDP DEMO ECHO-SERVER\n";
     // шаг 1 - подключение библиотеки 
     if (WSAStartup(0x202, (WSADATA*)&buff[0]))
@@ -116,26 +111,26 @@ int main() {
         closesocket(Lsock);
         WSACleanup();
         return -1;
-    }// шаг 4 обработка пакетов, присланных клиентами
+    }
+    // шаг 4 обработка пакетов, присланных клиентами
     while (1) {
-        sockaddr_in    Caddr;
+        sockaddr_in Caddr;
         int Caddr_size = sizeof(Caddr);
-        int bsize = recvfrom(Lsock, &buff[0], sizeof(buff) - 1, 0,
-            (sockaddr*)&Caddr, &Caddr_size);
+        int seed;
+        int bsize = recvfrom(Lsock, (char*)&seed, sizeof(seed), 0, (sockaddr*)&Caddr, &Caddr_size);
         if (bsize == SOCKET_ERROR)
             cout << "RECVFROM() ERROR:" << WSAGetLastError();
         // Определяем IP-адрес клиента и прочие атрибуты
         HOSTENT* hst;
         hst = gethostbyaddr((char*)&Caddr.sin_addr, 4, AF_INET);
-        cout << "NEW DATAGRAM!\n" <<
-            ((hst) ? hst->h_name : "Unknown host") << "/n" <<
-            inet_ntoa(Caddr.sin_addr) << "/n" << ntohs(Caddr.sin_port) << '\n';
-        //buff[bsize] = '\0';              // добавление завершающего нуля
-        cout << "C=>S:" << buff << '\n';        // Вывод на экран 
+        cout << "NEW DATAGRAM!" << endl;
+        cout << ((hst) ? hst->h_name : "Unknown host\n") << endl;
+        cout << inet_ntoa(Caddr.sin_addr) << endl;
+        cout << ntohs(Caddr.sin_port) << endl;
+        cout << "C=>S: seed: " << seed << endl; // Вывод на экран 
+        srand(seed);
+        F = GenerateField();
         // посылка датаграммы клиенту
-        Field F = GenerateField();
-        cout << "generated: " << sizeof(F) << endl;
-        printField(F);
         sendto(Lsock, (char*)&F, sizeof(F), 0, (sockaddr*)&Caddr, sizeof(Caddr));
     }      return 0;
 }
