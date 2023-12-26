@@ -1,0 +1,6 @@
+﻿  Chat_server.cpp
+F:\ComputersNetwork\Chat_server\Chat_server\Chat_server.cpp(212,38): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+F:\ComputersNetwork\Chat_server\Chat_server\Chat_server.cpp(233,39): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+F:\ComputersNetwork\Chat_server\Chat_server\Chat_server.cpp(278,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+F:\ComputersNetwork\Chat_server\Chat_server\Chat_server.cpp(286,55): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Chat_server.vcxproj -> F:\ComputersNetwork\Chat_server\x64\Debug\Chat_server.exe
