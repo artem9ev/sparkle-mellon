@@ -1,4 +1,3 @@
 ﻿  Chat_client.cpp
-F:\ComputersNetwork\Chat_client\Chat_client\Chat_client.cpp(216,36): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\ComputersNetwork\Chat_client\Chat_client\Chat_client.cpp(223,35): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-  Chat_client.vcxproj -> F:\ComputersNetwork\Chat_client\x64\Debug\Chat_client.exe
+K:\bread\sparkle-mellon\networking\Chat_client\Chat_client\Chat_client.cpp(92,16): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Chat_client.vcxproj -> K:\bread\sparkle-mellon\networking\Chat_client\x64\Debug\Chat_client.exe
