@@ -1,2 +1,3 @@
 ﻿  HTTP-CLIENT.cpp
-  HTTP-CLIENT.vcxproj -> F:\ComputersNetwork\HTTP-CLIENT\x64\Debug\HTTP-CLIENT.exe
+K:\bread\sparkle-mellon\networking\HTTP-CLIENT\HTTP-CLIENT\HTTP-CLIENT.cpp(46,38): error C2065: request: необъявленный идентификатор
+K:\bread\sparkle-mellon\networking\HTTP-CLIENT\HTTP-CLIENT\HTTP-CLIENT.cpp(46,54): error C2065: request: необъявленный идентификатор
