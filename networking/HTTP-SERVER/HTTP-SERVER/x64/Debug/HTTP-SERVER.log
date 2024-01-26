@@ -1,1 +1,9 @@
-﻿  HTTP-SERVER.vcxproj -> K:\bread\sparkle-mellon\networking\HTTP-SERVER\x64\Debug\HTTP-SERVER.exe
+﻿  HTTP-SERVER.cpp
+D:\bread\sparkle-mellon\networking\HTTP-SERVER\HTTP-SERVER\HTTP-SERVER.cpp(27,23): warning C4244: инициализация: преобразование "SOCKET" в "int", возможна потеря данных
+D:\bread\sparkle-mellon\networking\HTTP-SERVER\HTTP-SERVER\HTTP-SERVER.cpp(56,25): warning C4309: инициализация: усечение константного значения
+D:\bread\sparkle-mellon\networking\HTTP-SERVER\HTTP-SERVER\HTTP-SERVER.cpp(61,31): warning C4244: =: преобразование "SOCKET" в "int", возможна потеря данных
+D:\bread\sparkle-mellon\networking\HTTP-SERVER\HTTP-SERVER\HTTP-SERVER.cpp(92,20): warning C4129: h: неизвестная escape-последовательность
+D:\bread\sparkle-mellon\networking\HTTP-SERVER\HTTP-SERVER\HTTP-SERVER.cpp(93,38): warning C4129: p: неизвестная escape-последовательность
+D:\bread\sparkle-mellon\networking\HTTP-SERVER\HTTP-SERVER\HTTP-SERVER.cpp(95,20): warning C4129: e: неизвестная escape-последовательность
+D:\bread\sparkle-mellon\networking\HTTP-SERVER\HTTP-SERVER\HTTP-SERVER.cpp(101,87): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  HTTP-SERVER.vcxproj -> D:\bread\sparkle-mellon\networking\HTTP-SERVER\x64\Debug\HTTP-SERVER.exe

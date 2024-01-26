@@ -9,7 +9,7 @@ using namespace std;
 #define request "GET/ HTTP/1,1\r\n Host: localhost \r\n\r\n"
 //html запрос
 #define max_packet_size 65535
-#define INET_SERVER std::string request = "GET/ HTTP/1.1\r\n HOST: www.json.org \r\n\r\n"; int port = 80; std::string host_name = "www.json.org"
+// "GET/ HTTP/1.1\r\n HOST: www.json.org \r\n\r\n" port = 80 host_name = "www.json.org"
 
 int main()
 {

@@ -8,7 +8,6 @@
 #pragma warning(disable: 4996)
 using namespace std;
 #define PORT 666    // порт сервера
-#define sHELLO "Hello, STUDENT\n"
 
 struct Field {
     int field[10][10];
