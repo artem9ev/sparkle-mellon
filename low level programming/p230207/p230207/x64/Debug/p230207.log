@@ -1,0 +1,50 @@
+﻿  p230207.cpp
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(14,5): error C4235: использовано нестандартное расширение: ключевое слово "__asm" данной архитектурой не поддерживается
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(15,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(15,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "EAX"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(15,13): error C2065: EAX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(16,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(16,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(16,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "EBX"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(16,13): error C2065: EBX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(17,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(17,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(17,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "EDX"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(17,13): error C2065: EDX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(18,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(18,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(18,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ECX"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(18,13): error C2065: ECX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(20,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "metka"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(20,17): error C2065: add: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(20,21): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "EDX"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(20,21): error C2065: EDX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(20,26): error C2065: EAX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(21,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "add"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(21,9): error C2065: add: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(21,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "EDX"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(21,13): error C2065: EDX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(21,18): error C2065: EBX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(22,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(22,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(22,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "EAX"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(22,13): error C2065: EAX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(22,18): error C2065: EBX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(23,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(23,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(23,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "EBX"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(23,13): error C2065: EBX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(23,18): error C2065: EDX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(24,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(24,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(24,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "EDX"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(24,13): error C2065: EDX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(25,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "loop"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(25,9): error C2065: loop: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(25,14): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "metka"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(25,14): error C2065: metka: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(26,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(26,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(26,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "f1"
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(26,17): error C2065: EBX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230207\p230207\p230207.cpp(27,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
