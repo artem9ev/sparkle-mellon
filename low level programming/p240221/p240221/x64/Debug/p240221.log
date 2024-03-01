@@ -1,0 +1,10 @@
+﻿  p240221.cpp
+D:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(13,2): error C4235: использовано нестандартное расширение: ключевое слово "__asm" данной архитектурой не поддерживается
+D:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(14,3): error C2065: LEA: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(14,7): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "EBX"
+D:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(14,7): error C2065: EBX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(15,3): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(15,3): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(15,7): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "z"
+D:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(15,10): error C2065: EBX: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(16,2): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"

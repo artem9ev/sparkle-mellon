@@ -1,0 +1,19 @@
+﻿  p230228.cpp
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(19,5): error C4235: использовано нестандартное расширение: ключевое слово "__asm" данной архитектурой не поддерживается
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(20,9): error C2065: lea: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(20,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "eax"
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(20,13): error C2065: eax: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(21,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "lea"
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(21,9): error C2065: lea: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(21,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ebx"
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(21,13): error C2065: ebx: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(22,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(22,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(22,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "i"
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(23,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(23,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(23,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "k"
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(24,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(24,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(24,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "scal"
+D:\bread\sparkle-mellon\low level programming\p230228\p230228\p230228.cpp(25,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
