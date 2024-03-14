@@ -1,0 +1,15 @@
+﻿  p230306.cpp
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(9,5): error C4235: использовано нестандартное расширение: ключевое слово "__asm" данной архитектурой не поддерживается
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(10,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(10,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ebx"
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(10,13): error C2065: ebx: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(11,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ror"
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(11,9): error C2065: ror: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(11,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ebx"
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(11,13): error C2065: ebx: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(12,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(12,9): error C2065: mov: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(12,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "x"
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(12,16): error C2065: ebx: необъявленный идентификатор
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(13,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "circlee"
+D:\bread\sparkle-mellon\low level programming\p230306\p230306\p230306.cpp(15,5): error C2059: синтаксическая ошибка: }
