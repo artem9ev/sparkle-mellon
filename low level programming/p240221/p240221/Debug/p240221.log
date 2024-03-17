@@ -1,2 +1,3 @@
 ﻿  p240221.cpp
-  p240221.vcxproj -> D:\bread\sparkle-mellon\low level programming\p240221\Debug\p240221.exe
+K:\bread\sparkle-mellon\low level programming\p240221\p240221\p240221.cpp(15,18): warning C4101: t: неиспользованная локальная переменная
+  p240221.vcxproj -> K:\bread\sparkle-mellon\low level programming\p240221\Debug\p240221.exe
