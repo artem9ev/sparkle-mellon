@@ -4,59 +4,32 @@ using namespace std;
 
 int main()
 {
-    int x, n; cin >> x >> n;
-    int i, res = x;
-    _asm {
-        bsr ebx, n
-        mov i, ebx
+    for (int i = 0; i < 6; i++)
+    {
+        int x, n; cin >> x >> n;
+        int res;
+        _asm {
+            bsr ecx, n
+            mov eax, 1
 
-        
-    }
-    cout << x << "^" << n << " = " << res << " i = " << i;
-
-    /*
-    int x, n; cin >> x >> n;
-    int i, res = x;
-    _asm {
-        xor edx, edx
-        mov eax, type n
-        mov ebx, 8
-        mul ebx
-        mov i, eax
-        
-        mov eax, x
-        mov ebx, n
-        mov ecx, 0
-
-        circlee:
-        cmp ecx, i
-        je exitt
-            xor edx, edx
-            ror n, 1
-            
-            mov eax, n
-            mov ebx, 2
-            div ebx
-            cmp edx, 1
-            xor edx, edx
-                mov eax, res
-                mov ebx, res
-                mul ebx
-                mov res, eax
-            je oneee
-            jmp zeroo
-            oneee:
+            jnz metka
+                mov ecx, 0
+            metka:
+            cmp ecx, -1
+            jle exitt
                 xor edx, edx
-                mov eax, res
-                mov ebx, x
+                mov ebx, eax
                 mul ebx
-                mov res, eax
-            zeroo:
-            inc ecx
-            jmp circlee
-        exitt:
- 
+                bt n, ecx
+                jnc nextt
+                    xor edx, edx
+                    mul x
+                nextt:
+                dec ecx
+                jmp metka
+            exitt:
+            mov res, eax
+        }
+        cout << x << "^" << n << " = " << res << endl << endl;
     }
-    cout << x << "^" << n << " = " << res;
-    */
 }

@@ -1,0 +1,7 @@
+﻿  lab6.cpp
+K:\bread\sparkle-mellon\low level programming\lab6\lab6\lab6.cpp(8,5): error C4235: использовано нестандартное расширение: ключевое слово "__asm" данной архитектурой не поддерживается
+K:\bread\sparkle-mellon\low level programming\lab6\lab6\lab6.cpp(9,9): error C2065: fldpi: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\lab6\lab6\lab6.cpp(10,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "fst"
+K:\bread\sparkle-mellon\low level programming\lab6\lab6\lab6.cpp(10,9): error C2065: fst: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\lab6\lab6\lab6.cpp(10,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "x"
+K:\bread\sparkle-mellon\low level programming\lab6\lab6\lab6.cpp(11,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"

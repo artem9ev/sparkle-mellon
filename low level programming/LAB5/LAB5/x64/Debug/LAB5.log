@@ -1,0 +1,15 @@
+﻿  LAB5.cpp
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(9,5): error C4235: использовано нестандартное расширение: ключевое слово "__asm" данной архитектурой не поддерживается
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(10,9): error C2065: fld: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(10,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "a"
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(11,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "fld"
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(11,9): error C2065: fld: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(11,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "b"
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(12,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "faddp"
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(12,9): error C2065: faddp: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(12,15): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "st"
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(12,15): error C3861: st: идентификатор не найден
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(13,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "fst"
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(13,9): error C2065: fst: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(13,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "b"
+K:\bread\sparkle-mellon\low level programming\LAB5\LAB5\LAB5.cpp(14,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
