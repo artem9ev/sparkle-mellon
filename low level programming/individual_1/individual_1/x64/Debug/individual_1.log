@@ -1,0 +1,33 @@
+﻿  individual_1.cpp
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(8,5): error C4235: использовано нестандартное расширение: ключевое слово "__asm" данной архитектурой не поддерживается
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(9,9): error C2065: fld: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(9,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "n"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(10,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "fsqrt"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(10,9): error C2065: fsqrt: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(11,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "fistp"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(11,9): error C2065: fistp: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(11,15): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "eax"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(11,15): error C2065: eax: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(12,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(12,9): error C2065: mov: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(12,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ecx"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(12,13): error C2065: ecx: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(12,18): error C2065: eax: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(13,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "startt"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(17,13): error C2065: cmp: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(17,17): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ecx"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(17,17): error C2065: ecx: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(18,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "je"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(18,13): error C2065: je: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(18,16): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "stopp"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(18,16): error C2065: stopp: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(19,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "dec"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(19,17): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ecx"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(19,13): warning C4551: в вызове функции отсутствует список аргументов
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(19,17): error C2065: ecx: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(20,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "jmp"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(20,13): error C2065: jmp: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(20,17): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "startt"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(20,17): error C2065: startt: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(21,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "stopp"
+K:\bread\sparkle-mellon\low level programming\individual_1\individual_1\individual_1.cpp(23,6): error C2059: синтаксическая ошибка: }
