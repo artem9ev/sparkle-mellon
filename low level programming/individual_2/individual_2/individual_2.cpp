@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <bitset>
 
 using namespace std;
 
@@ -12,8 +13,8 @@ int main()
     int H, W, h, w, x1, x2, y1, y2;
     cout << "pic H, W: "; cin >> H >> W;
     int picSize = H * W; // размер изображения в битах
-    int n = picSize / 16 + 1; // кол-во байт для записи изображения
-    short unsigned * pic = new short unsigned[n]; // выделение памяти
+    int n = picSize / 8 + 1; // кол-во байт для записи изображения
+    char unsigned * pic = new char unsigned[n]; // выделение памяти
     for (int i = 0; i < n; i++)
     {
         pic[i] = 0;
@@ -85,12 +86,11 @@ int main()
                 mul H
                 add eax, mainAxis
                 xor edx, edx
-                mov ebx, 16
+                mov ebx, 8
                 div ebx
                 mov ebx, edx
-                mov esi, 15
+                mov esi, 7
                 sub esi, ebx
-                shl eax, 1
                 add edi, eax
                 ; покрасил нужный пиксель(бит) в черный цвет
                 bts[edi], esi
@@ -102,12 +102,11 @@ int main()
                 mul H
                 add eax, mainAxis
                 xor edx, edx
-                mov ebx, 16
+                mov ebx, 8
                 div ebx
                 mov ebx, edx
-                mov esi, 15
+                mov esi, 7
                 sub esi, ebx
-                shl eax, 1
                 add edi, eax
                 ; покрасил нужный пиксель(бит) в черный цвет
                 bts[edi], esi
@@ -155,12 +154,11 @@ int main()
                 mul H
                 add eax, secondaryAxis1
                 xor edx, edx
-                mov ebx, 16
+                mov ebx, 8
                 div ebx
                 mov ebx, edx
-                mov esi, 15
+                mov esi, 7
                 sub esi, ebx
-                shl eax, 1
                 add edi, eax
                 ; покрасил нужный пиксель(бит) в черный цвет
                 bts[edi], esi
@@ -172,12 +170,11 @@ int main()
                 mul H
                 add eax, secondaryAxis2
                 xor edx, edx
-                mov ebx, 16
+                mov ebx, 8
                 div ebx
                 mov ebx, edx
-                mov esi, 15
+                mov esi, 7
                 sub esi, ebx
-                shl eax, 1
                 add edi, eax
                 ; покрасил нужный пиксель(бит) в черный цвет
                 bts[edi], esi
@@ -206,15 +203,20 @@ int main()
             jmp exitt
         exitt:
     }
-    // ВЫВОД ГОТОВОГО ИЗОБРАЖЕНИЯ
-    for (int i = 0, k = 0, j = SHRT_MAX + 1, l = 0; i < picSize; i++, l++)
+    for (int i = 0; i < n; i++)
     {
-        if (i % 16 == 0)
+        bitset<8> x(pic[n]);
+        cout << "d" << x << endl;
+    }
+    // ВЫВОД ГОТОВОГО ИЗОБРАЖЕНИЯ
+    for (int i = 0, k = 0, j = 128, l = 0; i < picSize; i++, l++)
+    {
+        if (i % 8 == 0)
         {
-            j = SHRT_MAX + 1;
+            j = 128;
         }
-        k = i / 16;
-        cout << " " << pic[k] / j % 2;
+        k = i / 8;
+        cout << " " << ((int)pic[k] / j % 2 ? "#" : "-");
         j = j >> 1;
         if (l + 1 == W)
         {
