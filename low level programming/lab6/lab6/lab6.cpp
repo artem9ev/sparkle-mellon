@@ -59,7 +59,7 @@ int main()
                 fstp b
                 jmp nextt
             elsee:
-                ; если f >= 0
+                ; если f >= 00
                 fstp a
             nextt:
             jmp startt

@@ -1,0 +1,18 @@
+﻿  individual_2.cpp
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(9,5): error C4235: использовано нестандартное расширение: ключевое слово "__asm" данной архитектурой не поддерживается
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(10,9): error C2065: mov: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(10,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "eax"
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(10,13): error C2065: eax: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(11,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(11,9): error C2065: mov: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(11,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ebx"
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(11,13): error C2065: ebx: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(12,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(12,9): error C2065: mov: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(12,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "ecx"
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(12,13): error C2065: ecx: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(13,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "mov"
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(13,9): error C2065: mov: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(13,13): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "edx"
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(13,13): error C2065: edx: необъявленный идентификатор
+K:\bread\sparkle-mellon\low level programming\individual_2\individual_2\individual_2.cpp(14,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
