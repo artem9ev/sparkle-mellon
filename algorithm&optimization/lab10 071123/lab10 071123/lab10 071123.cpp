@@ -4,6 +4,7 @@
 #include <set>
 #include <map>
 #include <time.h>
+#include <chrono>
 
 using namespace std;
 
@@ -228,7 +229,17 @@ int main()
 	int t = 20;
 	int w = 1000;
 	long* sum = new long[t];
-	for (n = 1; n <= t; n++)
+
+	n = 20;
+	G1();
+	G2();
+	auto t0 = chrono::high_resolution_clock::now();
+	cout << "res = " << startIso(g1, g2, n) << endl;
+	auto t1 = chrono::high_resolution_clock::now();
+
+	cout << "-> " << chrono::duration_cast<chrono::milliseconds>(t1 - t0).count() << " msec" << endl;
+
+	/*for (n = 1; n <= t; n++)
 	{
 		int i = n - 1;
 		sum[i] = 0;
@@ -243,5 +254,5 @@ int main()
 		}
 		cout << fixed << n << "\t" << sum[i] / (float)w << endl;
 		file << fixed << n << "\t" << sum[i] / (float)w << endl;
-	}
+	}*/
 }
