@@ -38,6 +38,7 @@ struct ball {
 	pos center; // центр мячика
 	pos dot; // точка на краю мячика
 	int radius;
+	float distance = 0; // общее пройденное расстояние
 	ball(int radius) {
 		this->radius = radius;
 		dot.setPos(center.x, center.y - radius);
@@ -48,11 +49,12 @@ struct ball {
 		dot.setPos(x, y + radius);
 		
 	}
-	// l - пройденное мячиком растояние
-	void move(float l) {
-		//center.addVec(l, 0);
-		float x = center.x - radius * cos(M_PI * 3 / 2 + l / radius);
-		float y = center.y - radius * sin(M_PI * 3 / 2 + l / radius);
+	// передвигает мячик по оси X на шаг с длиной range
+	void move(float range) {
+		center.addVec(range, 0);
+		distance += range;
+		float x = center.x - radius * cos(M_PI * 3 / 2 + distance / radius);
+		float y = center.y - radius * sin(M_PI * 3 / 2 + distance/ radius);
 		dot.setPos(x, y); // присвоение новой координаты точке на краю мяча
 		cout << fixed << "c1: " << center.x << " " << center.y << endl;
 		cout << fixed << "d1: " << dot.x << " " << dot.y << endl;
@@ -61,34 +63,30 @@ struct ball {
 
 int main()
 {
-	int radius = 5;
+	int radius = 6;
 	float s = 0;
-	int n = 27;
+	int n = 13, m = 41;
 	int** pic = new int* [n];
 	pos picCenter(n / 2, n / 2);
-	for (int i = 0; i < n; i++)
+	for (int y = 0; y < n; y++)
 	{
-		pic[i] = new int[n]; 
-		for (int k = 0; k < n; k++)
+		pic[y] = new int[m]; 
+		for (int x = 0; x < m; x++)
 		{
-			pic[i][k] = 0;
+			pic[y][x] = 0;
 		}
 	}
-	ball b(radius, picCenter.x, picCenter.y);
-	float l; cout << "l = "; cin >> l;
+	ball b(radius, 2 + radius, picCenter.y);
 
-	b.move(l);
-	//exit(1);
-	pic[(int)picCenter.y][(int)picCenter.x] = 1;
 
-	for (int i = 0; i < n; i++)
+	for (int y = 0; y < n; y++)
 	{
-		for (int k = 0; k < n; k++)
+		for (int x = 0; x < m; x++)
 		{
 			// для каждой точки считаю расстояние до центра окружности
-			if (b.center.getRange(i, k) < radius)
+			if (b.center.getRange(x, y) < radius)
 			{
-				pic[i][k] = 1;
+				pic[y][x] = 1;
 			}
 		}
 	}
@@ -97,21 +95,70 @@ int main()
 	cout << "d: " << b.dot.x << " " << b.dot.y << endl;
 
 	string str = "";
-	for (int i = 0; i < n; i++)
+	for (int y = 0; y < n; y++)
 	{
-		for (int k = 0; k < n; k++)
+		for (int x = 0; x < m; x++)
 		{
-			if (pic[i][k] == 0)
+			if (pic[y][x] == 0)
 			{
 				str += " -";
 			}
-			else if (pic[i][k] == 1)
+			else if (pic[y][x] == 1)
 			{
 				str += " #";
 			}
-			else if (pic[i][k] == 2)
+			else if (pic[y][x] == 2)
 			{
 				str += " X";
+			}
+			else if (pic[y][x] == 4)
+			{
+				str += " @";
+			}
+		}
+		str += "\n";
+		cout << str;
+		str = "";
+	}
+	// ---------------------------------------
+
+	float l; cout << "l = "; cin >> l;
+	b.move(l);
+
+	for (int y = 0; y < n; y++)
+	{
+		for (int x = 0; x < m; x++)
+		{
+			if (b.center.getRange(x, y) < radius)
+			{
+				pic[y][x] = 1;
+			}
+			else
+			{
+				pic[y][x] = 0;
+			}
+		}
+	}
+	pic[(int)b.dot.y][(int)b.dot.x] = 2;
+	for (int y = 0; y < n; y++)
+	{
+		for (int x = 0; x < m; x++)
+		{
+			if (pic[y][x] == 0)
+			{
+				str += " -";
+			}
+			else if (pic[y][x] == 1)
+			{
+				str += " #";
+			}
+			else if (pic[y][x] == 2)
+			{
+				str += " X";
+			}
+			else if (pic[y][x] == 4)
+			{
+				str += " @";
 			}
 		}
 		str += "\n";
