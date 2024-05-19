@@ -1,11 +1,5 @@
 ﻿  lab11.cpp
-D:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(56,11): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-D:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(57,11): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-D:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(70,25): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(70,18): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(79,19): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(87,29): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(87,26): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(132,29): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(132,26): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-  lab11.vcxproj -> D:\bread\sparkle-mellon\low level programming\lab11\x64\Debug\lab11.exe
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(63,11): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(64,11): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(92,15): warning C4305: инициализация: усечение из "double" в "float"
+  lab11.vcxproj -> K:\bread\sparkle-mellon\low level programming\lab11\x64\Debug\lab11.exe

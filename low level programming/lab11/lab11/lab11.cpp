@@ -1,11 +1,19 @@
 ﻿#include <iostream>
 #include <string>
 #include <math.h>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 # define M_PI 3.14159265358979323846
 
 using namespace std;
 
+mutex mtx;
+condition_variable cv;
+
+bool isOneFinished = false;
+float finishX = 15;
 
 struct pos {
 	float x;
@@ -37,132 +45,73 @@ struct pos {
 struct ball {
 	pos center; // центр мячика
 	pos dot; // точка на краю мячика
-	int radius;
+	float radius;
 	float distance = 0; // общее пройденное расстояние
-	ball(int radius) {
+	float speed;
+	string name;
+	ball(float radius, float speed, string name) {
 		this->radius = radius;
-		dot.setPos(center.x, center.y - radius);
-	}
-	ball(int radius, float x, float y) {
-		this->radius = radius;
-		center.setPos(x, y);
-		dot.setPos(x, y + radius);
-		
+		this->speed = speed;
+		this->name = name;
+		center.setPos(0, radius);
+		move(0);
 	}
 	// передвигает мячик по оси X на шаг с длиной range
 	void move(float range) {
 		center.addVec(range, 0);
 		distance += range;
-		float x = center.x - radius * cos(M_PI * 3 / 2 + distance / radius);
-		float y = center.y - radius * sin(M_PI * 3 / 2 + distance/ radius);
+		float x = center.x + radius * cos(M_PI * 3 / 2 + distance / radius);
+		float y = center.y + radius * sin(M_PI * 3 / 2 + distance / radius);
 		dot.setPos(x, y); // присвоение новой координаты точке на краю мяча
-		cout << fixed << "c1: " << center.x << " " << center.y << endl;
-		cout << fixed << "d1: " << dot.x << " " << dot.y << endl;
 	}
 };
 
+void moveOneBall(ball& b, bool& canMove) {
+	unique_lock<mutex> lck(mtx);
+	while (b.distance < finishX) // выполняем пока мяч не дойдет до финиша
+	{
+		while (!canMove) { cv.wait(lck); }
+		canMove = false;
+		b.move(b.speed);
+	}
+}
+
+void ActivateThreads(bool& canMove1, bool& canMove2) {
+	unique_lock<mutex> lck(mtx);
+	canMove1 = true;
+	canMove2 = true;
+	cv.notify_all();
+}
+
 int main()
 {
-	int radius = 6;
-	float s = 0;
-	int n = 13, m = 41;
-	int** pic = new int* [n];
-	pos picCenter(n / 2, n / 2);
-	for (int y = 0; y < n; y++)
-	{
-		pic[y] = new int[m]; 
-		for (int x = 0; x < m; x++)
-		{
-			pic[y][x] = 0;
-		}
-	}
-	ball b(radius, 2 + radius, picCenter.y);
+	setlocale(LC_ALL, "RUS");
 
+	float radius = 2;
+	float speed1 = 0.5;
+	float speed2 = 1.2;
 
-	for (int y = 0; y < n; y++)
-	{
-		for (int x = 0; x < m; x++)
-		{
-			// для каждой точки считаю расстояние до центра окружности
-			if (b.center.getRange(x, y) < radius)
-			{
-				pic[y][x] = 1;
-			}
-		}
-	}
-	pic[(int)b.dot.y][(int)b.dot.x] = 2;
-	cout << "c: " << b.center.x << " " << b.center.y << endl;
-	cout << "d: " << b.dot.x << " " << b.dot.y << endl;
+	ball b1(radius, speed1, "Красный шарик"); // мяч 1
+	ball b2(radius, speed2, "Синий мячик"); // мяч 2
 
-	string str = "";
-	for (int y = 0; y < n; y++)
-	{
-		for (int x = 0; x < m; x++)
-		{
-			if (pic[y][x] == 0)
-			{
-				str += " -";
-			}
-			else if (pic[y][x] == 1)
-			{
-				str += " #";
-			}
-			else if (pic[y][x] == 2)
-			{
-				str += " X";
-			}
-			else if (pic[y][x] == 4)
-			{
-				str += " @";
-			}
-		}
-		str += "\n";
-		cout << str;
-		str = "";
-	}
-	// ---------------------------------------
+	finishX = 15; // дистанция до финиша
+	bool canMove1 = false;
+	bool canMove2 = false;
 
-	float l; cout << "l = "; cin >> l;
-	b.move(l);
+	thread th1(moveOneBall, ref(b1), ref(canMove1));
+	thread th2(moveOneBall, ref(b2), ref(canMove2));
+	auto t0 = std::chrono::high_resolution_clock::now();
+	ActivateThreads(canMove1, canMove2); // разрешаем потокам 1 раз сдвинуть мячи
+	auto t1 = std::chrono::high_resolution_clock::now();
+	auto time = std::chrono::duration_cast<std::chrono::microseconds>(t1 - t0);
+	cout << time.count() << " мс |" << b1.center.x << " " << b1.center.y << " | " << b1.dot.x << b1.dot.y;
+	th1.join();
+	th2.join();
+	
+	cout << endl << "Конец!";
 
-	for (int y = 0; y < n; y++)
-	{
-		for (int x = 0; x < m; x++)
-		{
-			if (b.center.getRange(x, y) < radius)
-			{
-				pic[y][x] = 1;
-			}
-			else
-			{
-				pic[y][x] = 0;
-			}
-		}
-	}
-	pic[(int)b.dot.y][(int)b.dot.x] = 2;
-	for (int y = 0; y < n; y++)
-	{
-		for (int x = 0; x < m; x++)
-		{
-			if (pic[y][x] == 0)
-			{
-				str += " -";
-			}
-			else if (pic[y][x] == 1)
-			{
-				str += " #";
-			}
-			else if (pic[y][x] == 2)
-			{
-				str += " X";
-			}
-			else if (pic[y][x] == 4)
-			{
-				str += " @";
-			}
-		}
-		str += "\n";
-		cout << str;
-		str = "";
-	}
+	auto s = std::chrono::high_resolution_clock::now();
+	auto e = std::chrono::high_resolution_clock::now();
+	
+
 }
