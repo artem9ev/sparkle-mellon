@@ -1,5 +1,10 @@
 ﻿  lab11.cpp
-K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(63,11): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(64,11): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(92,15): warning C4305: инициализация: усечение из "double" в "float"
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(65,11): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(66,11): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(80,12): warning C4244: инициализация: преобразование "_Rep" в "int", возможна потеря данных
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(80,12): warning C4244:         with
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(80,12): warning C4244:         [
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(80,12): warning C4244:             _Rep=__int64
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(80,12): warning C4244:         ]
+K:\bread\sparkle-mellon\low level programming\lab11\lab11\lab11.cpp(103,15): warning C4305: инициализация: усечение из "double" в "float"
   lab11.vcxproj -> K:\bread\sparkle-mellon\low level programming\lab11\x64\Debug\lab11.exe
