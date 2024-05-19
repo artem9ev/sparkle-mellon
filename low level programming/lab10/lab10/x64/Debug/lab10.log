@@ -1,0 +1,4 @@
+﻿  lab10.cpp
+K:\bread\sparkle-mellon\low level programming\lab10\lab10\lab10.cpp(11,14): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+K:\bread\sparkle-mellon\low level programming\lab10\lab10\lab10.cpp(104,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  lab10.vcxproj -> K:\bread\sparkle-mellon\low level programming\lab10\x64\Debug\lab10.exe

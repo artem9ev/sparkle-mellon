@@ -1,3 +1,6 @@
 ﻿  lab9.cpp
-D:\bread\sparkle-mellon\low level programming\lab9\lab9\lab9.cpp(71,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  lab9.vcxproj -> D:\bread\sparkle-mellon\low level programming\lab9\x64\Debug\lab9.exe
+K:\bread\sparkle-mellon\low level programming\lab9\lab9\lab9.cpp(68,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+K:\bread\sparkle-mellon\low level programming\lab9\lab9\lab9.cpp(108,74): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+K:\bread\sparkle-mellon\low level programming\lab9\lab9\lab9.cpp(125,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+K:\bread\sparkle-mellon\low level programming\lab9\lab9\lab9.cpp(132,15): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  lab9.vcxproj -> K:\bread\sparkle-mellon\low level programming\lab9\x64\Debug\lab9.exe
