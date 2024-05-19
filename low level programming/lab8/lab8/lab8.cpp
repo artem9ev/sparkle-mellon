@@ -16,7 +16,6 @@ void scal(vector<int> v1, vector<int> v2, int& sum, int s, int e){
 }
 
 void sssort(vector<int>& v, int& i, int& k) {
-	mtx.lock();
 	while (i < v.size())
 	{
 		k = i + 1;
@@ -31,7 +30,6 @@ void sssort(vector<int>& v, int& i, int& k) {
 		}
 		i++;
 	}
-	mtx.unlock();
 }
 
 
@@ -45,18 +43,25 @@ int main()
 		v[i] = rand() % 100;
 	}
 	int superI = 0, superK;
-	auto t0 = chrono::high_resolution_clock::now();
+	cout << "start job" << endl;
+	//auto t0 = chrono::high_resolution_clock::now();
 	thread th1(sssort, ref(v), ref(superI), ref(superK));
 	thread th2(sssort, ref(v), ref(superI), ref(superK));
 	th1.join();
 	th2.join();
-	auto t1 = chrono::high_resolution_clock::now();
-	
-	for (int i = 0; i < n; i++)
+	cout << "end job" << endl;
+	bool f = true;
+	for (int i = 0; i < n - 1; i++)
 	{
-		//cout << v[i] << " ";
+		if (v[i] > v[i + 1])
+		{
+			f = false;
+			break;
+		}
 	}
-	cout << "2 th -> " << chrono::duration_cast<chrono::milliseconds>(t1 - t0).count() << " msec" << endl;
+	cout << (f ? "array is sorted" : "array isn't sorted") << endl;
+	//auto t1 = chrono::high_resolution_clock::now();
+	//cout << "2 th -> " << chrono::duration_cast<chrono::milliseconds>(t1 - t0).count() << " msec" << endl;
 
     /*vector<int> v1(n);
     vector<int> v2(n);
