@@ -1,0 +1,10 @@
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\bin\Debug\MO-31-1_Artemev_Jarvis.exe.config
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\bin\Debug\MO-31-1_Artemev_Jarvis.exe
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\bin\Debug\MO-31-1_Artemev_Jarvis.pdb
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\obj\Debug\MO-31-1_Artemev_Jarvis.csproj.AssemblyReference.cache
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\obj\Debug\MO_31_1_Artemev_Jarvis.FormMain.resources
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\obj\Debug\MO_31_1_Artemev_Jarvis.Properties.Resources.resources
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\obj\Debug\MO-31-1_Artemev_Jarvis.csproj.GenerateResource.cache
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\obj\Debug\MO-31-1_Artemev_Jarvis.csproj.CoreCompileInputs.cache
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\obj\Debug\MO-31-1_Artemev_Jarvis.exe
+D:\bread\sparkle-mellon\neuralnetworks\MO-31-1_Artemev_Jarvis\MO-31-1_Artemev_Jarvis\obj\Debug\MO-31-1_Artemev_Jarvis.pdb

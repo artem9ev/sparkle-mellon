@@ -172,15 +172,15 @@ bool canPasteNode(state &st, int node_1, int node_2, string s) {
 
 bool iso(map<int, set<int> >::reverse_iterator map_1, map<int, set<int> >::reverse_iterator map_2, set<int>::iterator it_node_1, state current_st = state(), string s = "")
 {
-	//cout << s << "try " << (*map_1).first << endl;
-	//cout<< s << "recursion: " << (*map_1).first << endl;
+	cout << s << "try " << (*map_1).first << endl;
+	cout<< s << "recursion: " << (*map_1).first << endl;
 	steps++;
 	bool isIso = false;
 	steps++; // отдельно считаю вызов хотя бы одного из return
 	for (set<int>::iterator node_2 = (*map_2).second.begin(); node_2 != (*map_2).second.end(); node_2++) {
-		/*cout << s << *it_node_1 << " - " << *node_2 << " ??? " << degs.first[*it_node_1] << " - " << degs.second[*node_2];
+		cout << s << *it_node_1 << " - " << *node_2 << " ??? " << degs.first[*it_node_1] << " - " << degs.second[*node_2];
 		cout << " = " << isEqualNodes(*it_node_1, *node_2) << " " << (current_st.pos(*node_2) == -1);
-		cout << " " << canPasteNode(current_st, *it_node_1, *node_2, s) << endl;*/
+		cout << " " << canPasteNode(current_st, *it_node_1, *node_2, s) << endl;
 		steps += 3;
 		if (isEqualNodes(*it_node_1, *node_2) && current_st.pos(*node_2) == -1 && canPasteNode(current_st, *it_node_1, *node_2, s)) {
 			set<int>::iterator node_1 = it_node_1;
@@ -189,13 +189,13 @@ bool iso(map<int, set<int> >::reverse_iterator map_1, map<int, set<int> >::rever
 			map<int, set<int> >::reverse_iterator next_map_2 = map_2;
 			st.set(*node_1, *node_2); // задаю соответствие node_1 -> node_2
 
-			/*cout << s << "equal: " << *node_1 << " - " << *node_2 << " | state :   []     ";
+			cout << s << "equal: " << *node_1 << " - " << *node_2 << " | state :   []     ";
 			for (int k = 0; k < n; k++)
 			{
 				cout << st.synonym[k] << "    ";
 			}
 			cout << "[]" << endl;
-			cout << s << "B " << *node_1 << " " << *--(*next_map_1).second.end() << endl;*/
+			cout << s << "B " << *node_1 << " " << *--(*next_map_1).second.end() << endl;
 			steps += 11;
 			if (*node_1 != *--(*next_map_1).second.end()) {
 				node_1++;
@@ -214,7 +214,7 @@ bool iso(map<int, set<int> >::reverse_iterator map_1, map<int, set<int> >::rever
 			}
 		}
 	}
-	//cout  << s << "end" << endl;
+	cout  << s << "end" << endl;
 	return isIso; // если не найдет хотя бы одной подходящей вершины в g2, то вернет false, иначе вернет результат след шага рекурсии
 }
 
