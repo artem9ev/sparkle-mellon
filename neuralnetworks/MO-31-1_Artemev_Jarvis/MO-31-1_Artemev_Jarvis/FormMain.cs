@@ -14,6 +14,8 @@ namespace MO_31_1_Artemev_Jarvis
         private double[] m_inputPixels;
         private Network network;
 
+        private int seriesLength = 40;
+
         private List<Button> m_usedButtons = new List<Button>();
 
         public FormMain()
@@ -22,6 +24,7 @@ namespace MO_31_1_Artemev_Jarvis
             network = new Network();
 
             network.OnE_Error += OnE_Error;
+            network.OnAccuracy += OnAccuracy;
             network.OnTaskStart += OnTrainStart;
             network.OnTaskEnd += OnTrainEnd;
 
@@ -30,8 +33,24 @@ namespace MO_31_1_Artemev_Jarvis
 
         private void OnE_Error(double e)
         {
+            if (chart_Eavr.Series[0].Points.Count > seriesLength)
+            {
+                chart_Eavr.Series[0].Points.RemoveAt(0);
+            }
             chart_Eavr.Series[0].Points.AddY(e);
-            Console.WriteLine($"[{chart_Eavr.Series[0].Points.Count}] e: {e}");
+            //Console.WriteLine($"[{chart_Eavr.Series[0].Points.Count}] e: {e}");
+        }
+
+        private void OnAccuracy(double accuracy)
+        {
+            if (chart_Eavr.Series[1].Points.Count > seriesLength)
+            {
+                chart_Eavr.Series[1].Points.RemoveAt(0);
+            }
+            chart_Eavr.Series[1].Points.AddY(accuracy);
+            label_probability.Text = (accuracy).ToString("0.00") + "%";
+
+            //Console.WriteLine($"[{chart_Eavr.Series[1].Points.Count}] accuracy: {accuracy}");
         }
 
         private void OnTrainStart()
@@ -78,12 +97,13 @@ namespace MO_31_1_Artemev_Jarvis
 
         private void button_trainClick(object sender, EventArgs e)
         {
-            Task task = network.TrainAsync();
+            Task task = network.TrainAsync(10);
         }
 
         private void button_test_Click(object sender, EventArgs e)
         {
-            Task task = network.TestAsync(10);
+            Console.WriteLine("Test start");
+            Task task = network.TestAsync(5);
         }
 
         //сохранить в файл обучающий пример 
@@ -149,6 +169,14 @@ namespace MO_31_1_Artemev_Jarvis
                 NecessaryOutput.Text = "";
                 return;
             }
+        }
+
+        private void button_KillClick(object sender, EventArgs e)
+        {
+            network.Kill();
+
+            chart_Eavr.Series[0].Points.Clear();
+            chart_Eavr.Series[1].Points.Clear();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace MO_31_1_Artemev_Jarvis.NeuroNet
                 double sum = 0;
                 for (int k = 0; k < numOfNeurons; k++)
                 {
-                    sum += neurons[k].Weights[i] * errors[k];
+                    sum += neurons[k].Weights[i + 1] * errors[k];
                 }
                 gr_sum[i] = sum;
             }

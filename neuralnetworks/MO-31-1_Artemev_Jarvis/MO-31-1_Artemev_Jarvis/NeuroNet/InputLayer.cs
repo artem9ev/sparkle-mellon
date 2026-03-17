@@ -41,13 +41,16 @@ namespace MO_31_1_Artemev_Jarvis.NeuroNet
                     break;
 
                 case NetworkMode.Test:
+                    if (!File.Exists(path + "test.txt"))
+                    {
+                        return;
+                    }
+
                     tempStrings = File.ReadAllLines(path + "test.txt");
                     testSet = new double[tempStrings.Length, 16];
-
                     for (int i = 0; i < tempStrings.Length; i++)
                     {
                         tempValues = tempStrings[i].Split(' ');
-
                         for (int j = 0; j < 16; j++)
                         {
                             testSet[i, j] = double.Parse(tempValues[j]);

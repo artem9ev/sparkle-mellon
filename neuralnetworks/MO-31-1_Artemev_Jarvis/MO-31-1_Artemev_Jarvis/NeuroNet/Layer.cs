@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
 
 namespace MO_31_1_Artemev_Jarvis.NeuroNet
 {
@@ -14,12 +13,14 @@ namespace MO_31_1_Artemev_Jarvis.NeuroNet
         protected int numOfNeurons;
         protected int numOfPrevNeurons;
 
-        protected const double learningRate = 0.13d; // 0.065
-        protected const double momentum = 0.1d; // 0.6
+        protected const double learningRate = 0.2d; // 0.065
+        protected const double momentum = 0.3d; // 0.6
 
         protected double[,] lastDeltaWeights;
 
         protected Neuron[] neurons;
+
+        private NeuronType neuronType;
 
         public Neuron[] Neurons { get { return neurons; } set { neurons = value; } }
 
@@ -40,6 +41,7 @@ namespace MO_31_1_Artemev_Jarvis.NeuroNet
             numOfPrevNeurons = nopn;
             Neurons = new Neuron[non];
             this.name = name;
+            neuronType = nt;
 
             pathDirWeights = AppDomain.CurrentDomain.BaseDirectory + "memory\\";
             pathFileWeights = pathDirWeights + this.name + "_memory.csv";
@@ -169,6 +171,34 @@ namespace MO_31_1_Artemev_Jarvis.NeuroNet
         }
 
         abstract public void Recognize(Network net, Layer nextLayer); // для прямых проходов 
-        abstract public double[] BackwardPass(double[] stuff); // и обратных 
+        abstract public double[] BackwardPass(double[] stuff); // и обратных \
+
+        public void KillWieghts()
+        {
+            double[,] Weights;
+            int non = numOfNeurons;
+            int nopn = numOfPrevNeurons;
+
+            if (File.Exists(pathFileWeights))
+            {
+                Weights = WeightInit(MemoryMode.INIT, pathFileWeights);
+            }
+            else
+            {
+                return;
+            }
+
+            lastDeltaWeights = new double[non, nopn + 1];
+
+            for (int i = 0; i < non; i++)
+            {
+                double[] tmp_weights = new double[nopn + 1];
+                for (int j = 0; j < nopn + 1; j++)
+                {
+                    tmp_weights[j] = Weights[i, j];
+                }
+                Neurons[i] = new Neuron(tmp_weights, neuronType);
+            }
+        }
     }
 }

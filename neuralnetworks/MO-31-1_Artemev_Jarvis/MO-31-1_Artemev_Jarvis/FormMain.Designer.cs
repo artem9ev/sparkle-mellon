@@ -32,6 +32,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -57,6 +58,7 @@
             this.NecessaryOutput = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button_test = new System.Windows.Forms.Button();
+            this.button_kill = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart_Eavr)).BeginInit();
             this.SuspendLayout();
             // 
@@ -252,6 +254,7 @@
             chartArea1.CursorY.Interval = 0D;
             chartArea1.Name = "ChartArea1";
             this.chart_Eavr.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
             legend1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             legend1.IsTextAutoFit = false;
             legend1.Name = "Titles";
@@ -262,10 +265,19 @@
             series1.BorderWidth = 3;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             series1.IsVisibleInLegend = false;
             series1.Legend = "Titles";
             series1.Name = "Series1";
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            series2.Legend = "Titles";
+            series2.Name = "Series2";
+            series2.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             this.chart_Eavr.Series.Add(series1);
+            this.chart_Eavr.Series.Add(series2);
             this.chart_Eavr.Size = new System.Drawing.Size(817, 624);
             this.chart_Eavr.TabIndex = 19;
             this.chart_Eavr.Text = "chart1";
@@ -339,11 +351,23 @@
             this.button_test.UseVisualStyleBackColor = true;
             this.button_test.Click += new System.EventHandler(this.button_test_Click);
             // 
+            // button_kill
+            // 
+            this.button_kill.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.button_kill.Location = new System.Drawing.Point(1251, 694);
+            this.button_kill.Name = "button_kill";
+            this.button_kill.Size = new System.Drawing.Size(192, 63);
+            this.button_kill.TabIndex = 26;
+            this.button_kill.Text = "Уничтожить";
+            this.button_kill.UseVisualStyleBackColor = false;
+            this.button_kill.Click += new System.EventHandler(this.button_KillClick);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1536, 889);
+            this.Controls.Add(this.button_kill);
             this.Controls.Add(this.button_test);
             this.Controls.Add(this.NecessaryOutput);
             this.Controls.Add(this.button_saveTrain);
@@ -403,6 +427,7 @@
         private System.Windows.Forms.TextBox NecessaryOutput;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button button_test;
+        private System.Windows.Forms.Button button_kill;
     }
 }
 

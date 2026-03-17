@@ -12,7 +12,7 @@ namespace MO_31_1_Artemev_Jarvis.NeuroNet
         private double derivative;
 
         // крнстанты для ф-ии фктивации
-        private double a = 0.97d;
+        private double a = 0.8d;
         // и т.д.
 
         public double[] Weights 
